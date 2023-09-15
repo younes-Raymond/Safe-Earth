@@ -17,24 +17,12 @@ const App = () => {
            {/* start user section              */}
           <Route element={<Optionbox />} path='/' exact />
           <Route path="/about-us" element={<Aboutus />} />
-          <Route path="/show-products" element={<ProductDetailPage />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/Jobs" element={<Jobs />} />
-          <Route path="/settings" element={<SettingsComponent />} />
 
           {/* start users section                        */}
       
             {userRole === 'admin' && (
               <>
           {/*  start   admin   dashboard section  */}
-          <Route path="/admin/option" element={<OptionDashboard />} />
-          <Route path="/admin/add-worker" element={<AddWorkersForm />} />
-          <Route path="/admin/add-Jobs" element={<AddJobForm />} />
-          <Route path="/admin/dashboard" element={<Dashboard/>} />
-          <Route path="/admin/add-material" element={<ProductForm />} />
-          <Route path='/admin/showWorkers' element={<ShowWorkers />} />
-          <Route path='/admin/showMaterial' element={<ShowMaterials />} />
-          <Route path='/admin/ShowJobs' element={<ShowJobs />} /> 
         {/*end   admin   dashboard section  */}
 
               </>
