@@ -9,6 +9,9 @@ const sendToken = (user, statusCode, res) => {
     }
 
 
+
+//send token 
+
     res.status(statusCode).cookie('token', token, options).json({
         success: true,
         user,
