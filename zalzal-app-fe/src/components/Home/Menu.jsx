@@ -37,11 +37,6 @@ function Menu() {
     setOpen(isOpen);
   };
   
- 
-  
-  
-  
-  
 
   return (
     <>
