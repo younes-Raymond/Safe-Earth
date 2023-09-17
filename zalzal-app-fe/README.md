@@ -26,11 +26,17 @@ PORT=4000
 
 3. Save the `.env` file with the specified environment variables.
 
+### Cloudinary for Media Uploads:
+
+- You have access to a Cloudinary account, which can be used directly for handling media uploads.
+- Utilize the Cloudinary API key, secret, and URLs provided in the `.env` file for uploading and managing media assets.
+
 ### Backend Database Connection:
 
 1. Connect the backend to the MongoDB database using the provided `MONGO_URI`.
-2. Ensure that the MongoDB connection is established and the database is accessible.
+2. Ensure that the MongoDB connection is established, and the database is accessible.
 
-After completing these tasks, the frontend should be able to interact with the backend for updating the village model using the user actions.
+After completing these tasks, the frontend should be able to interact with the backend for updating the village model and use Cloudinary for media uploads.
 ```
 
+This addition clarifies that Cloudinary can be used for media uploads and directs the developer to utilize the Cloudinary API keys and URLs provided in the `.env` file.

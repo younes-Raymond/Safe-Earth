@@ -1,6 +1,4 @@
-.Map-container:nth-child(1) {
-    height: 600px;
+.Map-container :first-child {
+    height: 700px;
     width: 100%;
-    position: relative;
-  }
-  
+}
