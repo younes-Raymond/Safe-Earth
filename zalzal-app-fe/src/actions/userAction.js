@@ -16,6 +16,10 @@ export const sendLocation = async (latitude, longitude) => {
 
 
 
+// update the contribution
+
+
+
 
 
 

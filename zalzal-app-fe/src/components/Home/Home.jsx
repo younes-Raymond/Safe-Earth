@@ -3,6 +3,8 @@ import Menu from './Menu';
 import Map from './Map';
 import { getUserLocation } from '../../utils/getLocation';
 import {sendLocation } from '../../actions/userAction'
+import './style/Home.css'
+
 
 function HomePage() {
   const [userLocation, setUserLocation] = useState(null);
@@ -11,12 +13,12 @@ function HomePage() {
   const [longitude, setlongitude] = useState('');
 
   useEffect(() => {
-  getLocation()
+//   getLocation()
   }, []); 
 
   let watchId = null;
 
-  const getLocation = async (materialId) => {  
+  const getLocation = async (villageId) => {  
     if (watchId) {
       navigator.geolocation.clearWatch(watchId);
     }
@@ -56,10 +58,9 @@ function HomePage() {
       <div className="Menu-Container">
         <Menu />
       </div>
-      <div className="Map-container">
-        {/* Pass userLocation as a prop to the Map component */}
-        {/* <Map userLocation={userLocation} /> */}
-      </div>
+      <div className="Map-container" >
+  <Map />
+</div>
     </div>
   );
 }

@@ -1,22 +1,21 @@
-// import React from 'react';
-// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React from "react";
+import BingMapsReact from "bingmaps-react";
 
-// const Map = () => {
+function Map() {
+  return (
+    <BingMapsReact
+      bingMapsKey="AhWIRQ2jlGpIYCjYkTns5knl56C05ervAIg4S_6cekLW_Gy864oVc8b4LBphnGLK"
+      height="500px"
+      mapOptions={{
+        navigationBarMode: "square",
+      }}
+      width="500px"
+      viewOptions={{
+        center: { latitude: 31.07317457220632, longitude: -8.406957080277902 },
+        mapTypeId: "grayscale",
+      }}
+    />
+  );
+}
 
-//   return (
-//     <MapContainer center={[51.505, -0.09]} zoom={13} style={{ height: '400px', width: '100%' }}>
-//       <TileLayer
-//         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-//       />
-//              {/* central of earthquake Marakech Morrcco */}
-//       <Marker position={[31.07317457220632, -8.406957080277902]}>  
-//         <Popup>
-//           A sample popup. Replace with your content.
-//         </Popup>
-//       </Marker>
-//     </MapContainer>
-//   );
-// };
-
-// export default Map;
+export default Map;

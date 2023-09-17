@@ -1,0 +1,6 @@
+.Map-container:nth-child(1) {
+    height: 600px;
+    width: 100%;
+    position: relative;
+  }
+  
