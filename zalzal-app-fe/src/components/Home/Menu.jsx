@@ -37,17 +37,11 @@ function Menu() {
     setOpen(isOpen);
   };
   
- 
-  
-  
-  
-  
 
   return (
     <>
       <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
         <List>
-
           <ListItem button>
             <ListItemText primary="" />
             <Card>

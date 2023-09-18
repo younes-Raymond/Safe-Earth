@@ -1,22 +1,28 @@
-// import React from 'react';
-// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React from "react";
+import BingMapsReact from "bingmaps-react";
 
-// const Map = () => {
+function Map() {
+  const center = { latitude: 31.07317457220632, longitude: -8.406957080277902 };
 
-//   return (
-//     <MapContainer center={[51.505, -0.09]} zoom={13} style={{ height: '400px', width: '100%' }}>
-//       <TileLayer
-//         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-//       />
-//              {/* central of earthquake Marakech Morrcco */}
-//       <Marker position={[31.07317457220632, -8.406957080277902]}>  
-//         <Popup>
-//           A sample popup. Replace with your content.
-//         </Popup>
-//       </Marker>
-//     </MapContainer>
-//   );
-// };
+  const pushPinLocation = `${center.latitude},${center.longitude};5;P10`; // Example pushpin syntax
+ console.log(pushPinLocation); 
 
-// export default Map;
+  return (
+    <BingMapsReact
+      bingMapsKey="AhWIRQ2jlGpIYCjYkTns5knl56C05ervAIg4S_6cekLW_Gy864oVc8b4LBphnGLK"
+      height="700px"
+      mapOptions={{
+        navigationBarMode: "square",
+      }}
+      width="100%"
+      viewOptions={{
+        center,
+        mapTypeId: "Aerial",
+        zoom: 6,
+      }}
+    //   pushPins={pushPinLocation}
+    />
+  );
+}
+
+export default Map;
