@@ -86,8 +86,27 @@ export const addUserContributionsToVillage = async (villageName, userContributio
   }
 };
 
-// update the contribution
+// function to add the village needs
+export const addNeedsToVillage = async (villageName, needs) => {
+  try {
+    const response = await axios.put(`/api/villages/${villageName}`, {
+      needs,
+    });
+    console.log('Needs added to village successfully:', response.data);
+  } catch (error) {
+    console.error('Error adding needs to village:', error);
+  }
+};
 
+// function post req that contain all the field including needs array to send it to the server.
+export const addAllField = async (villages) => {
+  try {
+    const response = await axios.post('/api/villages', villages);
+    console.log('Villages added successfully:', response.data);
+  } catch (error) {
+    console.error('Error adding villages:', error);
+  }
+};
 
 
 

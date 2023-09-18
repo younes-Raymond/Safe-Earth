@@ -13,7 +13,8 @@
     "imageUrls": ["url1.jpg", "url2.jpg"],
     "videoUrls": ["video1.mp4", "video2.mp4"],
     "liveStreamUrl": "livestream_url1",
-    "userContributions": []
+    "userContributions": [],
+    "needs": []
   },
 
 
@@ -28,6 +29,7 @@
     "imageUrls": ["url3.jpg", "url4.jpg"],
     "videoUrls": ["video3.mp4", "video4.mp4"],
     "liveStreamUrl": "livestream_url2",
-    "userContributions": []
+    "userContributions": [],
+    "needs": []
   }
 ]
