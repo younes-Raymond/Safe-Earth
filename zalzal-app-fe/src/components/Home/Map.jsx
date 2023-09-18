@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import BingMapsReact from "bingmaps-react";
 import Papa from 'papaparse'
 function Map() {
-<<<<<<< HEAD
 
 
 
@@ -84,13 +83,7 @@ const handleMoreInfoClick = () =>{
 }
 
 
-
-
-  const center = { latitude: 31.07317457220632, longitude: -8.406957080277902 };
-
-  const pushPinLocation = `${center.latitude},${center.longitude};5;P10`; // Example pushpin syntax
- console.log(pushPinLocation); 
-
+const pushPins = [pushPin]
 
   return (
     <BingMapsReact
@@ -100,20 +93,12 @@ const handleMoreInfoClick = () =>{
         navigationBarMode: "square",
       }}
       width="100%"
-
       pushPins={pushPins}
       viewOptions={{
         mapTypeId: "Aerial",
         zoom: 10,
         center:{latitude:31.07317457220632, longitude:-8.406957080277902}
-
-      viewOptions={{
-        center,
-        mapTypeId: "Aerial",
-        zoom: 6,
-
       }}
-    //   pushPins={pushPinLocation}
     />
   );
 }
