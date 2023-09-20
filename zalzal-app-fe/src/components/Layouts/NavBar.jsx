@@ -23,13 +23,6 @@ function NavBar() {
     const [isHovered, setIsHovered ] = useState(false);
   
 
-
-
-
-
-   
-
-
   const handleSearch = (event) => {
     // Implement your search logic here
     console.log('Searching for:', event.target.value);
@@ -52,7 +45,7 @@ function NavBar() {
   }
 
 
-  
+
 
   const  paperWidth = isHovered ? '60%' : '40%';
 

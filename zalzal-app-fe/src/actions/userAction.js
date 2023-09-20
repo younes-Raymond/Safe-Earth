@@ -86,6 +86,18 @@ export const addUserContributionsToVillage = async (villageName, userContributio
   }
 };
 
+
+export const sendDialogData = async (villageName, userContributions) => {
+  try {
+    const res = await axios.put(`/api/v1/villages/${villageName}`, {
+      userContributions,
+    });
+    console.log('User contributions added to village successfully:', res.data);
+  } catch (error) {
+    console.error('Error adding user contributions to village:', error);
+  }
+};
+
 // update the contribution
 
 

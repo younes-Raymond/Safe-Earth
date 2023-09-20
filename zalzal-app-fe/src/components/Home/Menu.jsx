@@ -66,7 +66,7 @@ function Menu() {
    
   const handleSearch = (event) => {
     console.log("Searching for:", event.target.value);
-    
+
   }
 
 
