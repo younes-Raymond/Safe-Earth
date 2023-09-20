@@ -86,26 +86,13 @@ export const addUserContributionsToVillage = async (villageName, userContributio
   }
 };
 
+// update the contribution
 
 
-export const sendDialogData = async (dialogData) => {
-  try {
-    const res = await axios.post('/api/v1/sendDialogData', dialogData);
-
-    console.log('Dialog data sent successfully:', res.data);
-  } catch (error) {
-    console.error('Error sending dialog data:', error);
-  }
-};
 
 
-export const searchKeyword = async (keyword) => {
-  try {
-    const res = await axios.post(`/api/v1/${keyword}`);
-    console.log(res.data);
-  } catch (error) {
-    console.error('Error sending keyword data:', error);
-  }
-};
+
+
+
 
 
