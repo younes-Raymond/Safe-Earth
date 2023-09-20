@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import BingMapsReact from "bingmaps-react";
 import Papa from 'papaparse'
 import VillageData from './Douars50km.csv' 
+import { getLocationAndSendOnMapReady } from "../../utils/getLocation";
 
 function Map() {
   const [pushPins, setPushPins] = useState([]);
@@ -72,6 +73,11 @@ function Map() {
   }, []);
 
 
+  useEffect(() => {
+    if (bingMapReady) {
+      getLocationAndSendOnMapReady()
+    }
+  }, [bingMapReady])
   return (
     <BingMapsReact
       bingMapsKey="AhWIRQ2jlGpIYCjYkTns5knl56C05ervAIg4S_6cekLW_Gy864oVc8b4LBphnGLK"

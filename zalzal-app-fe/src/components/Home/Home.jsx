@@ -5,7 +5,6 @@ import { getUserLocation } from '../../utils/getLocation';
 import {sendLocation } from '../../actions/userAction'
 import NavBar from '../Layouts/NavBar';
 import './style/Home.css'
-// import {}
 
 function HomePage() {
   const [userLocation, setUserLocation] = useState(null);
@@ -17,41 +16,8 @@ function HomePage() {
 //   getLocation()
   }, []); 
 
-  let watchId = null;
 
-  const getLocation = async (villageId) => {  
-    if (watchId) {
-      navigator.geolocation.clearWatch(watchId);
-    }
-    try {
-      const newWatchId = navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          setlatitude(+latitude);
-          setlongitude(+longitude)
-          console.log('latitude:', latitude, 'longtitude', longitude)
-          sendLocation(latitude, longitude);
-
-        },
-        (error) => {
-          console.error('Error getting current position:', error);
-          if (error.message.includes('User denied Geolocation')) {
-            // Ask for GPS permission again
-            // askForGPSPermission(materialId);
-          } else {
-            // getLocationByIP(materialId); // argument materialID 
-          }
-        },
-        { enableHighAccuracy: true }
-      );
-      setnewWatchId(newWatchId);
-    } catch (error) {
-      console.error('Error accessing geolocation:', error);
-      // Handle the error here and call the function to get location by IP
-    //   getLocationByIP(materialId);
-    }
-  };
+ 
 
   
   return (
