@@ -27,6 +27,7 @@ function NavBar() {
     // Implement your search logic here
     console.log('Searching for:', event.target.value);
   };
+
   const handleFilterClick = () => {
     console.log("Filter icon clicked");
     setIsFilterDialogOpen(true);
@@ -66,6 +67,7 @@ function NavBar() {
 
           <Paper 
           component="form" 
+          
           sx={{ 
             display:'flex',
             alignItems:'center',
@@ -81,6 +83,7 @@ function NavBar() {
            top:'5px',
            transition: 'width 0.3s ease-in-out',
           }}
+
           onMouseEnter={handleOnmousEnter}
           onMouseLeave={handleMouseLeave}
           >

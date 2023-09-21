@@ -17,7 +17,9 @@ import {
   FormControl,
   InputLabel,
   ListItemIcon,
+  // Alert
 } from '@mui/material';
+
 import { Menu as MenuIcon, Search as SearchIcon, Photo as PhotoIcon, VideoLibrary as VideoIcon, LiveTv as LiveTvIcon, AddCircle as AddCircleIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -28,7 +30,9 @@ import * as Yup from 'yup';
 import { sendDialogData } from '../../actions/userAction';
 
 
+
 function Menu() {
+
   const [open, setOpen] = useState(false);
   const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false);
   const [formErrors, setFormErrors] = useState({});
@@ -60,16 +64,17 @@ function Menu() {
   });
 
 
+
+
   const toggleDrawer = (isOpen) => () => {
     setOpen(isOpen);
   };
+
    
   const handleSearch = (event) => {
     console.log("Searching for:", event.target.value);
 
   }
-
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -97,11 +102,9 @@ function Menu() {
       });
   };
   
-  
-
 const handleInfoClick = () => {
     setIsInfoDialogOpen(true);
-  }
+}
 
 const handleCloseInfoDialog = () => {
   setIsInfoDialogOpen(false)
@@ -139,7 +142,7 @@ const handleSubmit = () => {
         people: formValues.people,
 
       };
-
+      
       sendDialogData(dialogData)
     })
     .catch((errors) => {

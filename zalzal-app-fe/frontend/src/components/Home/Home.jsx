@@ -17,8 +17,6 @@ function HomePage() {
   }, []); 
 
 
- 
-
   
   return (
     <div>
