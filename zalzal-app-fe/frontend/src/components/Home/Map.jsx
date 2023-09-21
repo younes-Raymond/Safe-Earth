@@ -1,6 +1,3 @@
-//Due to the asynchronous nature of the Bing Maps API you may encounter errors if you change props before the map has finished an initial load. You can pass a function to the onMapReady prop that will only run when the map has finished rendering.
-//look at the issuse , https://github.com/milespratt/bingmaps-react/issues/56
-//please read this article before start update this component: https://learn.microsoft.com/en-us/bingmaps/rest-services/common-parameters-and-types/asynchronous-requests
 import React, { useEffect, useState } from "react";
 import BingMapsReact from "bingmaps-react";
 import Papa from 'papaparse'
@@ -10,18 +7,19 @@ import { getLocationAndSendOnMapReady } from "../../utils/getLocation";
 function Map() {
   const [pushPins, setPushPins] = useState([]);
   const [bingMapReady, setBingMapReady] = useState(false);
+  const BingMapApiKey = "AhWIRQ2jlGpIYCjYkTns5knl56C05ervAIg4S_6cekLW_Gy864oVc8b4LBphnGLK";
 
- const CenterEarthQuake =  {
-  latitude: 31.07317457220632,
-  longitude: -8.406957080277902,
-}
+  const CenterEarthQuake = {
+    latitude: 31.07317457220632,
+    longitude: -8.406957080277902,
+  }
 
   const handlePushpinClick = () => {
     console.log("handlePushpinClick");
   };
 
   const handleMoreInfoClick = () => {
-    console.log("handleMoreInfoClick");
+    console.log("hansssadleMoreInfoClick");
   };
 
   useEffect(() => {
@@ -65,7 +63,7 @@ function Map() {
           }));
 
           setPushPins(pushPinsData);
-          setBingMapReady(true); 
+          setBingMapReady(true);
         },
       });
     };
@@ -73,22 +71,20 @@ function Map() {
   }, []);
 
 
-  useEffect(() => {
-    if (bingMapReady) {
-      getLocationAndSendOnMapReady()
-    }
-  }, [bingMapReady])
+  const handleMapReady = () => {
+    console.log("Bing Map is ready for use.");
+    getLocationAndSendOnMapReady();
+  };
+
+
   return (
     <BingMapsReact
-      bingMapsKey="AhWIRQ2jlGpIYCjYkTns5knl56C05ervAIg4S_6cekLW_Gy864oVc8b4LBphnGLK"
+      bingMapsKey= {BingMapApiKey} 
       height="700px"
-      pushPins={bingMapReady ? pushPins : null} 
-      onMapReady={() => {
-        setBingMapReady(true)
-      }}
-
+      pushPins={bingMapReady ? pushPins : null}
+      onMapReady={handleMapReady} 
       mapOptions={{
-        navigationBarMode: "compact", //compact
+        navigationBarMode: "compact",
         showBreadcrumb: true,
         colorScheme: {
           primaryColor: "white"

@@ -139,7 +139,7 @@ const handleSubmit = () => {
         people: formValues.people,
 
       };
-
+      
       sendDialogData(dialogData)
     })
     .catch((errors) => {

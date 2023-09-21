@@ -1,9 +1,10 @@
 
 import axios from 'axios'
 
+
 export const sendLocation = async (latitude, longitude) => {
     try {
-      const res = await axios.post('/api/v1/CheckUserLocation', {
+      const res = await axios.post(`/api/v1/CheckUserLocation`, {
         latitude,
         longitude,
       });
@@ -13,6 +14,7 @@ export const sendLocation = async (latitude, longitude) => {
     }
 
 };
+
 
 // function to update the village damageLevel
 export const updateVillageDamageLevel = async (villageName, damageLevel) => {
