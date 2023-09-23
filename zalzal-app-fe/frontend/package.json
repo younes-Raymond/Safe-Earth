@@ -11,6 +11,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.5.0",
     "bingmaps-react": "^1.2.10",
+    "concurrently": "^8.2.1",
     "geolib": "^3.3.4",
     "papaparse": "^5.4.1",
     "react": "^18.2.0",
@@ -21,7 +22,7 @@
     "yup": "^1.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run start:frontend",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
