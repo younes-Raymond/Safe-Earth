@@ -125,10 +125,21 @@ const handleAddVideoClick = () => {
 const handleFileInputChange = (event) => {
   const file = event.target.files[0];
   if (file) {
-    setSelectedImage(file);
+    if (file.type.startsWith('image')) {
+      setFormValues({
+        ...formValues,
+        imageURL: URL.createObjectURL(file), 
+      });
+    } else if (file.type.startsWith('video')) {
+      setFormValues({
+        ...formValues,
+        videoURL: URL.createObjectURL(file), 
+      });
+    }
     setIsInfoDialogOpen(true);
   }
 };
+
 
 const handleSubmit = () => {
   validationSchema
@@ -140,7 +151,8 @@ const handleSubmit = () => {
         phone: formValues.phone,
         status: formValues.status,
         people: formValues.people,
-        
+        imageURL: formValues.imageURL,
+        videoURL: formValues.videoURL,
       };
       
       sendDialogData(dialogData)
