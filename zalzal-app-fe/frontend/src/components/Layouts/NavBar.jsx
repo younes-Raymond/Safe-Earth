@@ -45,9 +45,6 @@ function NavBar() {
     setIsFilterDialogOpen(false);
   }
 
-
-
-
   const  paperWidth = isHovered ? '60%' : '40%';
 
   const inputPlaceHolderStyle = {

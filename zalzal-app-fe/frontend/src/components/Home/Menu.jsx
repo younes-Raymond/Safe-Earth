@@ -1,4 +1,4 @@
-import React, { useState , useRef} from 'react';
+import React, { useState , useRef, useEffect} from 'react';
 import {
   Button,
   Typography,
@@ -28,7 +28,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationAddTwoToneIcon from '@mui/icons-material/NotificationAddTwoTone';
 import * as Yup from 'yup';
 import { sendDialogData } from '../../actions/userAction';
-
+import { useSelector } from 'react-redux';
 
 
 function Menu() {
@@ -38,7 +38,7 @@ function Menu() {
   const [formErrors, setFormErrors] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
-
+  const  isUserInsideCircle =  useSelector((s) => s.map.isUserInsideCircle);
   const [formValues, setFormValues] = useState({
     villageName: '',
     address: '',
@@ -51,6 +51,16 @@ function Menu() {
     needs: [],
   });
   
+  useEffect(() => {
+    if (isUserInsideCircle) {
+      // console.log('yes its inside it im from menu compo..')
+      setIsInfoDialogOpen(true)
+    }
+  }, [isUserInsideCircle]);
+
+
+
+
   const validationSchema = Yup.object().shape({
     villageName: Yup.string().required('Village Name is required'),
     address: Yup.string().required('Address is required'),
@@ -64,8 +74,6 @@ function Menu() {
   });
 
 
-
-
   const toggleDrawer = (isOpen) => () => {
     setOpen(isOpen);
   };
@@ -73,7 +81,6 @@ function Menu() {
    
   const handleSearch = (event) => {
     console.log("Searching for:", event.target.value);
-
   }
 
   const handleChange = (e) => {
@@ -405,7 +412,9 @@ const handleSubmit = () => {
   variant="contained"
   color="primary"
   onClick={handleSubmit}
-  disabled={Object.keys(formErrors).length > 0}
+
+  // disabled={Object.keys(formErrors).length > 0
+  // }
 >
   Upload
 </Button>
