@@ -1,6 +1,7 @@
 import { sendLocation } from "../actions/userAction";
 
 export const getLocationAndSendOnMapReady = async () => {
+
   const getLocation = () => {
     return new Promise((resolve, reject) => {
       try {

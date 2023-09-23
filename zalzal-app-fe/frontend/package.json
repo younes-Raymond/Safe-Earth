@@ -10,7 +10,10 @@
     "@mui/x-data-grid": "^6.14.0",
     "axios": "^1.5.0",
     "bingmaps-react": "^1.2.10",
+<<<<<<< HEAD
     "geolib": "^3.3.4",
+=======
+>>>>>>> 9978136e93626c316ad0a8fa023f7653e8f1ee4a
     "papaparse": "^5.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

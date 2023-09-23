@@ -167,6 +167,18 @@ const handleAlertClose = (event, reason) => {
 
 <div className="snackBar">
 <Snackbar
+
+  sx={{
+    width: '40%',
+    height: 'auto',
+    '& .MuiAlert-root': {
+      width: '100%', 
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      opacity:'0.7'
+    },
+  }}
   open={alertOpen}
   autoHideDuration={6000}
   onClose={handleAlertClose}
@@ -176,9 +188,9 @@ const handleAlertClose = (event, reason) => {
     variant="filled"
     severity="info"
     onClose={handleAlertClose}
-    sx={{ width: '80%' }} 
+    sx={{ width: '100%' }} 
   >
-    Get in touch with us to help us gather data about the people and the village by filling the form in the menu.
+    Get in touch with us to help us gather data about the people and the village.
   </MuiAlert>
 </Snackbar>
 </div>
