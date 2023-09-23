@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b9e3d6d2.css",
+    "main.js": "/static/js/main.f856bc6e.js",
+    "static/media/Douars50km.csv": "/static/media/Douars50km.310b4dc5c97ab88fde09.csv",
+    "index.html": "/index.html",
+    "main.b9e3d6d2.css.map": "/static/css/main.b9e3d6d2.css.map",
+    "main.f856bc6e.js.map": "/static/js/main.f856bc6e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b9e3d6d2.css",
+    "static/js/main.f856bc6e.js"
+  ]
+}
