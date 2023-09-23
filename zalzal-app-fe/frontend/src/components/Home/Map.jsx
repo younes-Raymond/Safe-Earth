@@ -10,11 +10,13 @@ import {
 Alert,
 Typography
 } from '@mui/material';
+
+
 function Map() {
   const [pushPins, setPushPins] = useState([]);
   const [bingMapReady, setBingMapReady] = useState(false);
   const BingMapApiKey = "AhWIRQ2jlGpIYCjYkTns5knl56C05ervAIg4S_6cekLW_Gy864oVc8b4LBphnGLK";
-  // const [userLocation, setUserLocation] = useState(null); 
+  const [userLocation, setUserLocation] = useState(null); 
  const [alertOpen , setAlertOpen ] = useState(false);
   
 
@@ -83,11 +85,14 @@ function Map() {
     };
     fetchParseData();
   }, []);
-  
-const userLocation = {
-  latitude:31.2326184,
-  longitude:-8.4410987
-}
+
+
+
+  // i use this to test the isuserIndideCircel function 
+// const userLocation = {
+//   latitude:31.2326184,
+//   longitude:-8.4410987
+// }
 
   
 const isUserInsideCircle = () => {
@@ -106,17 +111,12 @@ const isUserInsideCircle = () => {
   };
   
 
-
-  
-
-
-
 const handleMapReady = () => {
     console.log("Bing Map is ready for use.");
     
     getLocationAndSendOnMapReady()
       .then((location) => {
-        // setUserLocation(location);
+        setUserLocation(location);
         // Check if the user is inside the circle
         const insideCircle = isUserInsideCircle();
         if(insideCircle){
