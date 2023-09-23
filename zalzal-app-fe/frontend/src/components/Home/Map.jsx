@@ -13,12 +13,12 @@ Typography
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInsideCircle } from "../../reducers/mapSlice";
 
-
+// this version is for deployment 
 function Map() {
   const [pushPins, setPushPins] = useState([]);
   const [bingMapReady, setBingMapReady] = useState(false);
   const BingMapApiKey = "AhWIRQ2jlGpIYCjYkTns5knl56C05ervAIg4S_6cekLW_Gy864oVc8b4LBphnGLK";
-  // const [userLocation, setUserLocation] = useState(null); 
+  const [userLocation, setUserLocation] = useState(null); 
   const [alertOpen , setAlertOpen ] = useState(false);
   const dispatch = useDispatch();
   const isUserInsideCircle = useSelector((s) => s.map.isUserInsideCircle);
@@ -91,11 +91,11 @@ function Map() {
 
 
 
-  // i use this to test the isuserIndideCircel function 
-const userLocation= {
-  latitude:31.2326184,
-  longitude:-8.4410987
-}
+//   // i use this to test the isuserIndideCircel function 
+// const userLocation= {
+//   latitude:31.2326184,
+//   longitude:-8.4410987
+// }
 
   
 const ckeckIsUserInsideCircle = () => {
@@ -121,7 +121,7 @@ const handleMapReady = () => {
     }
     getLocationAndSendOnMapReady()
       .then((location) => {
-        // setUserLocation(location);
+        setUserLocation(location);
         // Check if the user is inside the circle
         const insideCircle = ckeckIsUserInsideCircle();
         dispatch(setUserInsideCircle(insideCircle));
