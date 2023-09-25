@@ -20,6 +20,7 @@ app.use(fileUpload());
 
 const village = require('./routes/productRoute');
 const user = require('./routes/userRoute');
+
 app.use('/api/v1', user);
 app.use('/api/v1', village);
 

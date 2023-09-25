@@ -18,7 +18,7 @@ function Map() {
   const [pushPins, setPushPins] = useState([]);
   const [bingMapReady, setBingMapReady] = useState(false);
   const BingMapApiKey = "AhWIRQ2jlGpIYCjYkTns5knl56C05ervAIg4S_6cekLW_Gy864oVc8b4LBphnGLK";
-  const [userLocation, setUserLocation] = useState(null); 
+  // const [userLocation, setUserLocation] = useState(null); 
   const [alertOpen , setAlertOpen ] = useState(false);
   const dispatch = useDispatch();
   const isUserInsideCircle = useSelector((s) => s.map.isUserInsideCircle);
@@ -91,50 +91,51 @@ function Map() {
 
 
 
-//   // i use this to test the isuserIndideCircel function 
-// const userLocation= {
-//   latitude:31.2326184,
-//   longitude:-8.4410987
-// }
+  // i use this to test the isuserIndideCircel function 
+const userLocation= {
+  latitude:31.2326184,
+  longitude:-8.4410987
+}
 
-  
 const ckeckIsUserInsideCircle = () => {
-    if (userLocation && userLocation.latitude !== undefined && userLocation.longitude !== undefined) {
-      const { latitude, longitude } = userLocation;
-      if (CenterEarthQuake && typeof CenterEarthQuake.latitude === 'number' && typeof CenterEarthQuake.longitude === 'number') {
-        const distanceInMeters = geolib.getDistance(
-          { latitude, longitude },
-          CenterEarthQuake
-        );
-  
-        return distanceInMeters <= circleRadiusInMeters;
-      }
+  if (userLocation && userLocation.latitude !== undefined && userLocation.longitude !== undefined) {
+    const { latitude, longitude } = userLocation;
+    if (CenterEarthQuake && typeof CenterEarthQuake.latitude === 'number' && typeof CenterEarthQuake.longitude === 'number') {
+      const distanceInMeters = geolib.getDistance(
+        { latitude, longitude },
+        CenterEarthQuake
+      );
+
+      return distanceInMeters <= circleRadiusInMeters;
     }
-    return false;
-  };
+  }
+  return false;
+};
   
 
 const handleMapReady = () => {
     // console.log("Bing Map is ready for use.");
+  
     if (alertOpen){
       setAlertOpen(false);
     }
-    getLocationAndSendOnMapReady()
-      .then((location) => {
-        setUserLocation(location);
+    
+    // getLocationAndSendOnMapReady()
+      // .then((location) => {
+        // setUserLocation(location);
         // Check if the user is inside the circle
         const insideCircle = ckeckIsUserInsideCircle();
         dispatch(setUserInsideCircle(insideCircle));
         if(insideCircle){
           setAlertOpen(true);
-          console.log("User is inside the circle:", insideCircle);
+          // console.log("User is inside the circle:", insideCircle);
         } else {
-          console.log("User is outside the circle.", insideCircle)
+          // console.log("User is outside the circle.", insideCircle)
         }
-      })
-      .catch((error) => {
-        console.error('Error getting user location:', error);
-      });
+      // })
+      // .catch((error) => {
+        // console.error('Error getting user location:', error);
+      // });
   };
 
   
