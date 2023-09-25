@@ -4,5 +4,6 @@
 # local env files
 /config.env
 node_modules
-/backend
+# /backend
+
 
