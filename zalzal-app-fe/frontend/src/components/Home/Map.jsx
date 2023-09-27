@@ -18,11 +18,12 @@ function Map() {
   const [pushPins, setPushPins] = useState([]);
   const [bingMapReady, setBingMapReady] = useState(false);
   const BingMapApiKey = "AhWIRQ2jlGpIYCjYkTns5knl56C05ervAIg4S_6cekLW_Gy864oVc8b4LBphnGLK";
-  // const [userLocation, setUserLocation] = useState(null); 
+  const [userLocation, setUserLocation] = useState(null); 
   const [alertOpen , setAlertOpen ] = useState(false);
   const dispatch = useDispatch();
   const isUserInsideCircle = useSelector((s) => s.map.isUserInsideCircle);
 
+  
   const CenterEarthQuake = {
     latitude: 31.07317457220632,
     longitude: -8.406957080277902,
@@ -61,7 +62,7 @@ function Map() {
 
             options: {
               title: village.name,
-              color: "red", //
+              color: "red", //condition 
               icon: "",
               enableHoverStyle: true,
               label: village.name,
@@ -92,10 +93,10 @@ function Map() {
 
 
   // i use this to test the isuserIndideCircel function 
-const userLocation= {
-  latitude:31.2326184,
-  longitude:-8.4410987
-}
+// const userLocation= {
+//   latitude:31.2326184,
+//   longitude:-8.4410987
+// }
 
 const ckeckIsUserInsideCircle = () => {
   if (userLocation && userLocation.latitude !== undefined && userLocation.longitude !== undefined) {
@@ -120,9 +121,9 @@ const handleMapReady = () => {
       setAlertOpen(false);
     }
     
-    // getLocationAndSendOnMapReady()
-      // .then((location) => {
-        // setUserLocation(location);
+    getLocationAndSendOnMapReady()
+      .then((location) => {
+        setUserLocation(location);
         // Check if the user is inside the circle
         const insideCircle = ckeckIsUserInsideCircle();
         dispatch(setUserInsideCircle(insideCircle));
@@ -132,10 +133,10 @@ const handleMapReady = () => {
         } else {
           // console.log("User is outside the circle.", insideCircle)
         }
-      // })
-      // .catch((error) => {
-        // console.error('Error getting user location:', error);
-      // });
+      })
+      .catch((error) => {
+        console.error('Error getting user location:', error);
+      });
   };
 
   
@@ -172,8 +173,9 @@ const handleAlertClose = (event, reason) => {
 
 
 <div className="snackBar">
-<Snackbar
 
+
+<Snackbar
   sx={{
     width: '40%',
     height: 'auto',
@@ -185,7 +187,7 @@ const handleAlertClose = (event, reason) => {
       opacity:'0.7'
     },
   }}
-  open={alertOpen}
+  // open={alertOpen && !isInfoDialogOpen} // Only open the Snackbar if the dialog is not open
   autoHideDuration={6000}
   onClose={handleAlertClose}
 >
@@ -196,9 +198,12 @@ const handleAlertClose = (event, reason) => {
     onClose={handleAlertClose}
     sx={{ width: '100%' }} 
   >
-    Get in touch with us to help us gather data about the people and the village.
+    من فضلك، قم بملء النموذج لمساعدتنا في جمع البيانات حول الأشخاص والقرية.
   </MuiAlert>
 </Snackbar>
+
+
+
 </div>
 
 

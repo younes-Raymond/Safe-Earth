@@ -88,13 +88,13 @@ exports.createAnnouncement = asyncErrorHandler(async (req, res) => {
 
 
 exports.getAnnouncement = asyncErrorHandler(async (req, res) => {
-  console.log('i got a req here: ' , req.body)
+  // console.log('i got a req here: ' , req.body)
   try {
     // Query the database to fetch all announcements
     const announcements = await Announcement.find();
 
     // Send the announcements as a JSON response
-    console.log(announcements)
+    // console.log(announcements)
     res.status(200).json({ announcements });
   } catch (error) {
     console.error('Error fetching announcements:', error);

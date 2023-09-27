@@ -290,7 +290,10 @@ const handleSubmit = () => {
             <Typography
               variant="body2"
               color="text.secondary"
-              sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+              sx={{ display: 'flex',
+               alignItems: 'center', 
+               
+               justifyContent: 'space-between' }}
             >
               {`Status: ${announcement.status}`}
               <ListItemIcon>

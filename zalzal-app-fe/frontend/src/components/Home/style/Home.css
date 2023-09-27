@@ -1,10 +1,22 @@
 .Map-container :first-child {
 
-    height: 78px;
-    width: 70%;
+    height: auto;
+    width: 30%;
 
 }
 
+/* CSS for Map Container and Popper */
+.map-container {
+    position: relative; 
+    height: 700px; 
+    width: 100%; 
+}
 
-
-
+  .popper-content {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000; 
+  }
+  
