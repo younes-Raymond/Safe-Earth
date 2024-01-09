@@ -1,6 +1,5 @@
 {
   "name": "earthquake.ma",
-  "proxy": "http://localhost:3001",
   "version": "1.0.0",
   "description": "Full Stack shipping system",
   "main": "server.js",
@@ -10,7 +9,7 @@
     "install-client": "cd zalzal-app-fe/frontend && npm install",
     "build-client": "cd zalzal-app-fe/frontend && npm run build",
     "start-client": "cd zalzal-app-fe/frontend && npm start",
-    "start": "cd frontend && npm start"
+    "start": "cd frontend && npm start && cd backend && node server.js"
   },
   
   "author": "Younes Attaoui",
