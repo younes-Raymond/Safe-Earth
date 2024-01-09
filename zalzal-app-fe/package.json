@@ -1,5 +1,6 @@
 {
-  "name": "zalzalApp",
+  "name": "earthquake.ma",
+  "proxy": "http://localhost:3001",
   "version": "1.0.0",
   "description": "Full Stack shipping system",
   "main": "server.js",
