@@ -1,5 +1,5 @@
 {
-  "name": "earthquake.ma",
+  "name": "zalzalApp",
   "version": "1.0.0",
   "description": "Full Stack shipping system",
   "main": "server.js",
@@ -7,8 +7,8 @@
     "install-server": "cd zalzal-app-fe/backend && npm install",
     "start-server": "cd zalzal-app-fe/backend && node server.js",
     "install-client": "cd zalzal-app-fe/frontend && npm install",
-    "build-client": "cd zalzal-app-fe/frontend && npm run build",
-    "start-client": "cd zalzal-app-fe/frontend && npm run start"
+    "build-client": "cd zalzal-app-fe/frontend && npm build",
+    "start-client": "cd zalzal-app-fe/frontend && npm start"
   },
   "author": "Younes Attaoui",
   "license": "ISC",
