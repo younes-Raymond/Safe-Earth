@@ -19,6 +19,7 @@ function HomePage() {
       <div className="Map-container" >
   <Map />
 </div>
+
     </div>
   );
 }
