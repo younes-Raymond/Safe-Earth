@@ -4,6 +4,7 @@
   "description": "Full Stack shipping system",
   "main": "server.js",
   "scripts": {
+    "start": "cd zalzal-app-fe/frontend && npm start",  
     "install-server": "cd zalzal-app-fe/backend && npm install",
     "start-server": "cd zalzal-app-fe/backend && node server.js",
     "install-client": "cd zalzal-app-fe/frontend && npm install",
