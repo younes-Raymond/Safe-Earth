@@ -1,12 +1,14 @@
-// const express = require('express');
-// const {
-//   getVillage,
- 
+const express = require('express');
+const {
+  search
+} = require('../controllers/userController');
+const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 
-// } = require('../controllers/userController');
-// const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
+const router = express.Router();
+router.get('/search/:keyword', search);
 
-// const router = express.Router();
-// router.get('/village', getVillage)
+// router.post('/CheckUserLocation', checkPosition);
 
-// module.exports = router;
+module.exports = router;
+
+

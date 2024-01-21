@@ -1,11 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.e5f9bda3.css",
-    "main.js": "/static/js/main.2f9088aa.js",
-    "index.html": "/index.html"
+    "main.css": "/static/css/main.5cada2cf.css",
+    "main.js": "/static/js/main.403cbefd.js",
+    "static/media/Douars50km.csv": "/static/media/Douars50km.310b4dc5c97ab88fde09.csv",
+    "static/media/markerIcon.png": "/static/media/markerIcon.819ae43acedfb81b2c87.png",
+    "static/media/blog-post.1.md": "/static/media/blog-post.1.353c521e6551afd17057.md",
+    "static/media/blog-post.2.md": "/static/media/blog-post.2.b27a7ed09310c3b3942e.md",
+    "static/media/blog-post.3.md": "/static/media/blog-post.3.0068a2edf4e02dfd12e2.md",
+    "index.html": "/index.html",
+    "main.5cada2cf.css.map": "/static/css/main.5cada2cf.css.map",
+    "main.403cbefd.js.map": "/static/js/main.403cbefd.js.map"
   },
   "entrypoints": [
-    "static/css/main.e5f9bda3.css",
-    "static/js/main.2f9088aa.js"
+    "static/css/main.5cada2cf.css",
+    "static/js/main.403cbefd.js"
   ]
 }

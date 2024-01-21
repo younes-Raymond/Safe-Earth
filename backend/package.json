@@ -1,5 +1,5 @@
 {
-  "name": "earthQuaqApp",
+  "name": "earthquaqapp",
   "version": "1.0.0",
   "description": "The Earthquake Relief App is a web-based platform dedicated to providing immediate support and assistance to communities affected by earthquakes. Our application offers real-time information on earthquake events, helps users locate affected areas, and facilitates coordination of relief efforts. With a user-friendly interface and robust features, we aim to connect volunteers, organizations, and those in need, fostering solidarity and efficient disaster response."  ,
   "main": "backend/server.js",
@@ -12,6 +12,7 @@
   },
   "author": "younes raymond",
   "license": "ISC",
+  
   "dependencies": {
     "@sendgrid/mail": "^7.6.0",
     "axios": "^1.3.6",
@@ -36,4 +37,5 @@
     "uuid": "^8.3.2",
     "validator": "^13.7.0"
   }
+
 }

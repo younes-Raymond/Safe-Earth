@@ -1,8 +1,9 @@
 // Map.js
 import React from 'react';
-import { useEffect , useState } from 'react';
+import { useEffect , useState,} from 'react';
 import { MapContainer, TileLayer , Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { Link } from 'react-router-dom';
 import Papa from 'papaparse'
 import { DivIcon } from 'leaflet'; 
 import L from 'leaflet';
@@ -17,26 +18,16 @@ function Map() {
     const [pushPins, setPushPins] = React.useState([]);
     const [mapInstance, setMapInstance] = useState(null);
 
-
-    const CenterEarthQuake = {
-        lat: 31.07317457220632,
-        lon: -8.406957080277902,
-      }
-
-      const handleDonateClick = () => {
-        alert('Thank you for considering a donation! Your support helps us make a positive impact in the community. Your generosity allows us to continue our mission and provide valuable services to those in need. We deeply appreciate your contribution! 🌟💙');
-      }
-      
-
-
       const customIcon = new L.Icon({
         iconUrl: markerIcon,
-        iconSize: [30, 30], // adjust the size as needed
+        iconSize: [25, 25], // adjust the size as needed
         iconAnchor: [16, 32], // half of the size to center the icon on the marker's position
         popupAnchor: [0, -32], // position the popup above the marker
       });
 
-
+     
+    
+     
    
 
       useEffect(() => {
@@ -101,9 +92,11 @@ const position = [31.07317457220632, -8.406957080277902]
       style={{ height: '700px', width: '100%' }}
     >
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
+
+/>
+
       {pushPins.map((pin, index) => (
       <Marker
         key={index}
@@ -126,16 +119,22 @@ const position = [31.07317457220632, -8.406957080277902]
     >
       More Info
     </Button>
+    <Link to='CheckOut'>
+
     <Button
       variant="contained"
       color="secondary"
       startIcon={<DonateIcon />}
-      onClick={handleDonateClick}
+      // onClick={handleDonateClick}
     >
+
+
       Donate
     </Button>
+    </Link>
+
   </Paper>
-</Popup>
+</Popup> 
 
 
       </Marker>
