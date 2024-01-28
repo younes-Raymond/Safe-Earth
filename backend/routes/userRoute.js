@@ -1,12 +1,10 @@
-// const express = require('express');
-// const {
-//   getVillage,
- 
+const express = require('express');
+// const { sendContentOfTxtFiles } = require('../controllers/userController');
 
-// } = require('../controllers/userController');
-// const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
+const router = express.Router();
 
-// const router = express.Router();
-// router.get('/village', getVillage)
+// Your other route definitions...
 
-// module.exports = router;
+// router.post('/perform-ocr', performOCR);
+// router.get('/getTextContent', sendContentOfTxtFiles)
+module.exports = router;

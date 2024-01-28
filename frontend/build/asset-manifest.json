@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5cada2cf.css",
+    "main.js": "/static/js/main.c0b46f94.js",
+    "static/js/498.7c006a62.chunk.js": "/static/js/498.7c006a62.chunk.js",
+    "static/js/703.fde05308.chunk.js": "/static/js/703.fde05308.chunk.js",
+    "static/js/198.094f5cb3.chunk.js": "/static/js/198.094f5cb3.chunk.js",
+    "static/media/04.jpg": "/static/media/04.b9d209cfdc6515cff045.jpg",
+    "static/media/02.jpg": "/static/media/02.30addf0294bd3259c8d1.jpg",
+    "static/media/Douars50km.csv": "/static/media/Douars50km.310b4dc5c97ab88fde09.csv",
+    "static/media/03.jpg": "/static/media/03.c87c7241d1b86bd1f10c.jpg",
+    "static/media/01.jpg": "/static/media/01.5e1bf1f471c7ab345543.jpg",
+    "static/media/markerIcon.png": "/static/media/markerIcon.819ae43acedfb81b2c87.png",
+    "static/media/blog-post.1.md": "/static/media/blog-post.1.353c521e6551afd17057.md",
+    "static/media/blog-post.2.md": "/static/media/blog-post.2.b27a7ed09310c3b3942e.md",
+    "static/media/blog-post.3.md": "/static/media/blog-post.3.b82ac62fc356dd6c78d2.md",
+    "index.html": "/index.html",
+    "main.5cada2cf.css.map": "/static/css/main.5cada2cf.css.map",
+    "main.c0b46f94.js.map": "/static/js/main.c0b46f94.js.map",
+    "498.7c006a62.chunk.js.map": "/static/js/498.7c006a62.chunk.js.map",
+    "703.fde05308.chunk.js.map": "/static/js/703.fde05308.chunk.js.map",
+    "198.094f5cb3.chunk.js.map": "/static/js/198.094f5cb3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5cada2cf.css",
+    "static/js/main.c0b46f94.js"
+  ]
+}

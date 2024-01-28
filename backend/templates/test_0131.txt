@@ -1,0 +1,59 @@
+prioritise its total risk exposure so that the board can take an informed strategic
+
+approach to risk for the organisation as whole.
+
+Responding to risk
+
+A4.3.11 Each organisation needs to decide whether, and if so how, to respond to
+
+its identified risks. Some standard responses are listed in box A4.3C.
+Box A4.3C: Some standard responses to risk
+Treat: a common response. Treatment can mean imposing controls so that the organisation can
+continue to operate; or setting up prevention techniques. See box 4.3D for possible treatments.
+Transfer: another organisation might carry out an activity in which it is more expert. Insurance is not
+usually open to public sector organisations (see annex 4.4) but other forms of transfer are, eg using a
+payroll bureau. Some risks cannot be transferred, especially reputational risk. So delegating
+organisations should retain oversight of their agents, with scope for remedial action when necessary.
+Terminate: it may be best to stop (or not to start) activities which involve intolerable risks or those
+where no response can bring the residual risk to a tolerable level, eg failing projects where it is
+cheaper to start again. This option is not always available in the public sector, which sometimes has to
+shoulder difficult risks — typically remote but potentially serious ones — which the private sector can
+choose to avoid.
+Tolerate: for risks where the downside is containable with appropriate contingency plans; for some
+where the possible controls cannot be justified (eg because they would be disproportionate); and for
+unavoidable risks, eg terrorism.
+Take the opportunity: boards may embrace some risks, accepting their downside perhaps with
+controls or preventative action, in the expectation of beneficial outcomes. Avoiding all risk can be as
+irresponsible as disregarding risk.
+
+A4.3.12 In choosing responses, the acid test is whether the residual risk can be
+
+made acceptable after action. All controls should be realistic, proportionate to the
+
+intended reduction of risk, and offer good value for money. The more common
+
+types are listed in box A4.3D.
+Box A4.3D: Common controls
+Preventive action: measures to eliminate or limit undesirable outcomes, eg improving training or risk
+awareness; or stopping transfer of digital information using datasticks. Beware of imposing
+unnecessary costs or damaging innovation.
+Corrective controls: measures to deal with damaging aspects of realised risks, eg clauses to recover the
+cost of failure of a contract. Includes contingency planning.
+Directive controls: measures designed to specify the way in which a process is carried out to rule out
+some obvious potential damage, eg hygiene requirements.
+Detective controls: measures to identify damage so that it can be remedied quickly. Especially useful
+where prevention is not appropriate, but can be a useful cross check elsewhere, eg stock controls.
+
+A4.3.13 However it is treated, it is usually impossible to eliminate all risk. It would
+
+often be poor value for money to do so were it possible. So it is good practice to
+
+associate application of controls with contingency planning to cope with resolution
+
+of damage when risks precipitate. Many organisations find it useful to dry run these
+
+plans: first to check that they work, second to make sure they are proportionate and
+
+third to boil out any unnecessary features they may have.
+
+83

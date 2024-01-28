@@ -1,0 +1,29 @@
+A4.2.6 It is always good practice to evaluate the risks associated with any model so
+that the ultimate users of the model can appreciate what it can and cannot deliver.
+Sophisticated models may demand specialist expertise and leadership but the vital
+element of constructive lay oversight should never be skimped. Otherwise there can
+be a danger that flaws are overlooked because the experts concentrate on the
+technical complexities.
+A4.2.7 In managing a model, the SRO should consciously decide how it can provide
+good value for money. There is no point, for instance, in data collection to a high
+degree of accuracy if the assumptions used in the model cannot be exact. Similarly,
+there is a stronger case for investing in a model if it forms a central part of a
+decision making process.
+A4.2.8 References:
+QA of government models: https://www.gov.uk/government/publications/review-of-
+quality-assurance-of-government-models
+Guidance on long term financial modelling:
+https://www.gov.uk/government/publications/gad-services/government-actuarys-
+department-services#actuarial-modelling
+Following the report by Sir Nicholas Macpherson into the quality assurance of
+analytical models that inform government policy, a cross-departmental working
+group on analytical quality assurance was established. The Aqua Book (at the
+following link) is one of their key products, and provides a good practice guide for
+those working with analysis and analytical models. The landing webpage also links
+to a number of other associated resources on quality assurance and modelling.
+https://www.gov.uk/government/publications/the-aqua-book-guidance-on-
+producing-quality-analysis-for-government:
+
+80
+
+RRR RRR RRR RRR RRR RRR RRR RRR RRR

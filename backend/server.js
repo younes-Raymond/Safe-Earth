@@ -4,6 +4,11 @@ const path = require('path');
 const connectDatabase = require('./config/database');
 const cloudinary = require('cloudinary');
 const PORT = process.env.PORT || 4000;
+const fs = require('fs');
+const  Tesseract  = require('tesseract.js');
+const multer = require('multer');
+const Docxtemplater = require('docxtemplater');
+const JSZip = require('jszip');
 
 // UncaughtException Error
 process.on('uncaughtException', (err) => {
@@ -38,6 +43,55 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.listen(3000, () => {
   console.log('Server started on port 3000');
 });
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+const performOCR = async () => {
+    const directoryPath = './accenture-company';
+    const startImage = 44;
+    const endImage = 45;
+
+    for (let i = startImage; i <= endImage; i++) {
+        try {
+            const imagePath = path.join(directoryPath, `IMG_${i.toString().padStart(4, '0')}.jpg`);
+
+            // Perform OCR on the image
+            const { data: { text } } = await Tesseract.recognize(imagePath, 'eng');
+
+            console.log(`Recognized Text for ${imagePath}:`, text);
+
+            // Save the recognized text to a .txt file
+            const outputPath = path.join('./templates', `test_${i.toString().padStart(4, '0')}.txt`);
+            fs.writeFileSync(outputPath, text);
+
+            console.log(`Text saved at: ${outputPath}`);
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
+    }
+};
+
+
+
+// // Call the performOCR function
+// performOCR();
+
+
+
+
 
 
 

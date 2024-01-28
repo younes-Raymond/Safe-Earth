@@ -1,49 +1,39 @@
-import React , {useEffect, useState }from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import PrivateRoutes from './Routes/PrivateRoutes';
-import CheckUserRole  from './Routes/checkUserRole';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import HomePage from './components/Home/Home';
+import SignIn from './components/Auth/SingIn';
+import SignUp from './components/Auth/SingUp';
+import Menu from './components/Home/Menu';
+import Blog from './components/Blogs/Blog';
+import Checkout from './components/payments/Checkout.jsx';
+import Settings from './components/Layouts/Settings.jsx';
+import PdfGenerator from './components/Home/docxGenerator.jsx'
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
 
-const userRole = CheckUserRole()
-
-
-const App = () => {
+function AppContent() {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   return (
     <>
-      <Router>
-        {userRole !== 'unknown' && <Header />}
-        <Routes>
-          <Route element={<PrivateRoutes /> }>
-           {/* start user section              */}
-          <Route element={<Optionbox />} path='/' exact />
-          <Route path="/about-us" element={<Aboutus />} />
-
-          {/* start users section                        */}
-      
-            {userRole === 'admin' && (
-              <>
-          {/*  start   admin   dashboard section  */}
-        {/*end   admin   dashboard section  */}
-
-              </>
-        )}
-
-        {/* start profile section  */}
-        <Route path="/profile" element={<Profile />} />
-        {/* end  profile section  */}
-          </Route>
-
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />       
-          <Route path="/learn-more" element={<LearnBoxes />} />
-          <Route path='/Marketing-plan' element={<MarketingPlan />} />
-          {/* <Route path="/" element={<Optionbox />} /> */}   
-
-        </Routes>
-      </Router>
+      {!isHomePage && <Menu />}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/SignIn" element={<SignIn />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/Blog" element={<Blog />} />
+        <Route path="/CheckOut" element={<Checkout />} />
+        <Route path="/Settings" element={<Settings />} />
+        <Route path="/PdfGenerator" element={<PdfGenerator />} />
+      </Routes>
     </>
   );
-
-};
+}
 
 export default App;

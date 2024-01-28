@@ -1,0 +1,25 @@
+Annex 5.3
+Treatment of income and receipts
+The rules on use of income and receipts are designed to control the circumstances in which they can
+finance use of public resources.
+A5.3.1 Parliament controls departments’ use of income and receipts, just ast controls the
+raising of tax, since both may finance use of public resources. Departments should
+ensure that all income and associated cash is recorded in full and collected
+promptly.
+A5.3.2 Unless otherwise authorised, cash receipts must be paid into the
+Consolidated Fund. Sometimes specific legislation requires this for certain income
+streams; for many others the Civil List Act 1952 classifies them as hereditary
+revenues to be paid into the Consolidated Fund.
+A5.3.3 Hereditary revenue is:
++ virtually all non-statutory receipts;
++ cash receipts received by virtue of specific statutory authority; and
++ receipts where statute does not say otherwise.
+Unless it can be established that a particular type of receipt or surplus cash is not
+hereditary revenue, the default position is that it is, and that the Civil List Act 1952
+requires it to be paid into the Consolidated Fund.
+AS5.3.4 The main categories of income and associated receipts are shown in Box
+AS53A.
+Box A5.3A: the different kinds of central government income
++ the proceeds of taxation: paid into the Consolidated Fund
++ repayment of principal and interest on NLF loans: paid direct to the NLF
+141
