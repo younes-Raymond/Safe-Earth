@@ -1,0 +1,40 @@
+* the extent of each delegation, usually in financial terms, but potentially also in
+qualitative terms, eg all items of a certain kind to require approval
++ any relevant authorities, eg the enabling legislation or letter from a Treasury minister
++ the relevant budget provision
+* the relevant section of the department's Estimate
+* any effective dates
++ arrangements for review. HMT requires that delegated authority limits be reviewed
+annually.
+A2.2.11 In turn departments should agree delegated authorities with their arm's
+length bodies, making use of the template delegated authority letter. Delegations to
+ALBs should be no greater than departments’ own delegated authorities.
+Departments must seek HMT approval for the delegated authorities they agree with
+their ALBs.
+A2.2.12 There are some areas of expenditure and resource commitments which the
+Treasury cannot delegate: see box A.2.2C.
+Box A2.2C: where authority is never delegated
+«items which are novel, contentious or repercussive, even if within delegated limits
+* items which could exceed the agreed budget and Estimate limits
+* contractual commitments to significant spending in future years for which plans have
+not been set
+* items requiring primary legislation (eg to write off NLF debt or PDC)
+* any item which could set a potentially expensive precedent
+* where Treasury consent is a specific requirement of legislation
+A2.2.13 Strictly, the Treasury cannot delegate its power of approval where there is a
+statutory requirement for Treasury approval. But in practice it can be acceptable to
+set detailed and objective criteria where Treasury approval can be deemed without
+specific examination of each case. This may be appropriate to avoid a great deal of
+detailed case-by-case assessment. The Treasury may ask for intermittent sampling to
+check that this arrangement is operating satisfactorily.
+Failure to obtain Treasury authority
+A2.2.14 All expenditure which falls outside a department's delegated authority and
+has not been approved by the Treasury, is irregular. It cannot be charged to
+departmental Estimates. Similarly, any resources committed or expenditure incurred
+in breach of a condition attached to Treasury approval is irregular.
+A2.2.15 Where resource consumption or expenditure is irregular, the Treasury may
+be prepared to give retrospective approval if it is satisfied that:
+e itwould have granted approval had it been approached properly in the
+first place; and
+e the department is taking steps to ensure that there is no recurrence.
+64

@@ -1,0 +1,26 @@
+Annex 5.2
+This annex discusses how public sector organisations which provide grants to the private sector and
+others should protect their investments where grants are used to buy or improve assets.
+Clawback
+A5.2.1 Public sector organisations providing funds to others to acquire or develop assets
+should take steps to make sure that public sector funds are used for the intended
+purposes for which the grant is made. It is usual to consider setting conditions on
+such grants, taking into account the value of the grant, the use of the asset to be
+funded and its future value.A standard grant condition is clawback. This is achieved
+by setting a condition on the grant that gives the funding body a charge over the
+asset so that, if the recipient proposes to sell or change the use of the asset acquired
+with the grant, it must:
++ consult the funder;
++ return the grant to the funder; or
++ yield the proceeds of sale (or a specified proportion) to the funder.
+A5.2.3 However, a charge over the asset is not always essential. Some ground rules
+are suggested in box A5.2A.
+Box A5.2A: when to consider clawback
+clawback desirable
+* tangible or tangible or intangible assets, including intellectual property rights, crown
+copyright, patents, designs and database rights, financed directly, whether wholly or
+partly by grants or grants in aid;
+* tangible or intangible assets developed by the funded body itself, financed indirectly by
+a grant for a related purpose or by grant in aid
+clawback not always necessary
+137

@@ -1,0 +1,41 @@
+the AO supported by the board, taking a broad and connected view across the
+whole organisation.
+Box A4.3A: Outline of the risk management cycle
+1 The board defines the organisation's risk tolerance.
+2 The organisation identifies and categorises its risks.
+3 The organisation assesses the risks identified: how likely their possible impact,
+identifying which are beyond tolerance and when.
+4 The board scans the horizon for any remote overlooked risks.
+5 The board decides which risks matter and what action should be taken, if any.
+6 Downward delegation of management, coupled with upward reporting of risks through
+the organisation enables the board to track performance
+7 Using this feedback, the board takes a rounded overview, and may adjust decisions eg
+on tolerance or on response.
+8 Back to step 1 and iterate as the board chooses.
+Identifying risks
+A4.3.7 It is important to capture all the organisation's risks so that they can be
+evaluated properly in context.
+A4.3.8 There is value in getting each part of the organisation to think through its
+own risks. At working level operational risks may loom large. It may only be at board
+level that it is really possible to scan the horizon for emerging trends, problems or
+opportunities that might change the organisations working environment. Some of
+the critical risks that are easily overlooked are shown in box 4.38.
+Box A4.3B: Examples of risk which are easily missed
++ Information security risks: unsecured digital information can be misplaced or copied.
+* High impact low probability risks: remote risks with serious effect if they happen.
+* Opportunity risks: where some choices may close off other alternatives;.
+* End to end risks: which emerge when an operational chain fails simultaneously in
+several places in a linked set of processes.
++ Inter-organisational risks; which can cause failure of the organisation's business because
+of links to partners, suppliers and other stakeholders.
+* Cumulative risks: which happen if several risks precipitate at once, eg in response to the
+same trigger.
+A4.3.9 As well as drawing on risk assessment from within the organisation, it may
+be valuable to use an external source to make sure that nothing important has been
+overlooked. Sometimes different public sector organisations can help each other out
+in this way, to their mutual advantage. And it can be useful to get staff to work
+together to consider the subject, eg in facilitated groups.
+A4.3.10 Once the organisation's risks have been identified, it is possible to draw up
+a risk register. This is a list of recognised risks which can be kept up to date and
+which the board can review regularly. Each organisation needs to decide how to
+82

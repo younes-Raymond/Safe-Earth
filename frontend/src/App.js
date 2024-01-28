@@ -6,7 +6,8 @@ import SignUp from './components/Auth/SingUp';
 import Menu from './components/Home/Menu';
 import Blog from './components/Blogs/Blog';
 import Checkout from './components/payments/Checkout.jsx';
-import Settings from './components/Layouts/Settings.jsx'
+import Settings from './components/Layouts/Settings.jsx';
+import PdfGenerator from './components/Home/docxGenerator.jsx'
 function App() {
   return (
     <Router>
@@ -29,6 +30,7 @@ function AppContent() {
         <Route path="/Blog" element={<Blog />} />
         <Route path="/CheckOut" element={<Checkout />} />
         <Route path="/Settings" element={<Settings />} />
+        <Route path="/PdfGenerator" element={<PdfGenerator />} />
       </Routes>
     </>
   );

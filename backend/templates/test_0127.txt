@@ -1,0 +1,39 @@
+Annex 4.2
+Use of models
+
+implementation plans; and suggest how policies may evolve. Models should be controlled and
+
+understood in their proper context, with effective quality assurance, so that they can be used to good
+
+effect.
+Control and governance
+A4.2.1 Supported by the board, the accounting officer of a central government
+organisation should oversee the use and quality assurance (QA) of models within the
+organisation. There should be sufficient feedback for the accounting officer to be
+able to track progress and adjust the process.
+A4.2.2 Each business critical model should be managed by a senior responsible
+officer (SRO) of sufficient seniority and experience, supported by experts and
+specialists, to understand the use of the model in context. Project and programme
+management techniques can be useful. It is good practice to avoid changing the
+SRO frequently.
+A4.2.3 Each model is limited by the quality of its input data and founding
+assumptions. So the results of any model need to be treated with a degree of
+scepticism. It is vital to build sufficient governance into each model to help its users
+understand the value and weaknesses of its results. The apparent precision of
+mathematical models should not mislead uses into putting more weight on them
+than can be justified. Transparency should be the norm in the development and use
+of all models.
+Quality assurance
+A4.2.4 Whatever the complexity of the model, its governance should include an
+element of structured critical challenge to provide a sense check. It can take a
+number of forms: for example a steering group, a project board or outside
+assessment. New or untried models tend to require more QA than those using
+recognised techniques.
+A4.2.5 In an organisation using a great deal of modelling, it is good practice for the
+accounting officer to appoint a QA champion. Effective QA demands dispassionate
+scrutiny by people disengaged with the project but with sufficient knowledge and
+experience to help steer the model into a successful approach. There may be a case
+for ensuring that different models in different parts of the organisation use
+consistent approaches.
+
+79

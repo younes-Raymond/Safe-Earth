@@ -19,7 +19,7 @@ import axios from 'axios';
 export const sendQueryToDatabase =  async (query) => {
   try {
     const res  = await axios.get(`/api/v1/search/${query}`);
-    console.log(res.data);
+    // console.log(res.data);
 return res.data
   } catch (error) {
    console.error('error getting results:', error)

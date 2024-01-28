@@ -9,7 +9,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="https://safearth.org/">
         SafEarth
       </Link>{' '}
       {new Date().getFullYear()}
@@ -24,7 +24,7 @@ function Footer(props) {
   return (
     <Box component="footer" sx={{ bgcolor: 'background.paper', py: 6 }}>
       <Container maxWidth="lg">
-        <Typography variant="h6" align="center" gutterBottom>
+        <Typography variant="h6" align="center" gutterBottom color="primary">
           {title}
         </Typography>
         <Typography
@@ -34,6 +34,7 @@ function Footer(props) {
           component="p"
         >
           {description}
+          {' '}
         </Typography>
         <Copyright />
       </Container>

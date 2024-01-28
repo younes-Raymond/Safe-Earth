@@ -1,14 +1,10 @@
 const express = require('express');
-const {
-  search
-} = require('../controllers/userController');
-const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
+// const { sendContentOfTxtFiles } = require('../controllers/userController');
 
 const router = express.Router();
-router.get('/search/:keyword', search);
 
-// router.post('/CheckUserLocation', checkPosition);
+// Your other route definitions...
 
+// router.post('/perform-ocr', performOCR);
+// router.get('/getTextContent', sendContentOfTxtFiles)
 module.exports = router;
-
-

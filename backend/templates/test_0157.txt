@@ -1,0 +1,42 @@
+Constructive losses
+A4.10.22 A constructive loss is a similar form of payment to stores losses and
+fruitless payments, but one where procurement action itself caused the loss. For
+example, stores or services might be correctly ordered, delivered or provided, then
+paid for as correct; but later, perhaps because of a change of policy, they might
+prove not to be needed or to be less useful than when the order was placed.
+A4.10.23 Constructive losses need not be noted in the Losses Statement in the
+annual accounts unless they are significant.
+Claims waived or abandoned
+A4.10.24 Losses may arise if claims are waived or abandoned because, though
+properly made, it is decided not to present or pursue them. Some examples are in
+box A4.10D.
+A4.10.25 The following should not be treated as claims waived or abandoned.
+«any claims wrongly identified or presented, whether in error or
+otherwise. A claim should not, however, be regarded as withdrawn
+where there is doubt as to whether it would succeed if pursued in a
+court of law, or if the liability of the debtor has not or cannot be
+accurately assessed;
+= waivers or remission of tax. HMRC have special rules about remissions
+of tax. Departments should consult the Treasury about treatment when
+a case arises; or
++ aclaim for a refund of an overpayment which fails or is waived. This
+should be regarded as a cash loss.
+Box A4.10D: examples of waived and abandoned claims
+* where itis decided to reduce the rate of interest on a loan, and therefore to waive the
+right to receive the amount of the reduction
++ claims actually made and then reduced in negotiations or for policy reasons
+* claims which a department intended to make, but which could not be enforced, or
+were never presented
+«failure to make claims or to pursue them to finality, e.g. owing to procedural delays
+allowing the Limitations Acts (annex 4.11.11) to become applicable
+* claims arising from actual or believed contractual or other legal obligations which are
+not met (whether or not pursued), e.g. under default or liquidated damages clauses of
+contracts
+* amounts by which claims are reduced by compositions in insolvency cases, or in out-of-
+court settlements, other than reductions arising from corrections of facts
++ claims dropped on legal advice, or because the amounts of liabilities could not be
+determined
++ remission of interest on voted loans.
+A4.10.26 Waivers should be noted in annual accounts in accordance with the FReM.
+In addition:
+109

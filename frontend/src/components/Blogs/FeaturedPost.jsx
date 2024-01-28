@@ -9,10 +9,9 @@ import CardMedia from '@mui/material/CardMedia';
 
 function FeaturedPost(props) {
   const { post } = props;
-
   return (
     <Grid item xs={12} md={6}>
-      <CardActionArea component="a" href="#">
+      <CardActionArea component="a" href={post.link} target="_blank" rel="noopener noreferrer">
         <Card sx={{ display: 'flex' }}>
           <CardContent sx={{ flex: 1 }}>
             <Typography component="h2" variant="h5">
@@ -47,7 +46,9 @@ FeaturedPost.propTypes = {
     image: PropTypes.string.isRequired,
     imageLabel: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
   }).isRequired,
 };
+
 
 export default FeaturedPost;

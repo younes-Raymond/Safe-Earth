@@ -26,7 +26,9 @@ import {
   Notifications as NotificationsIcon,
   NotificationsActive as NotificationsActiveIcon,
   Feedback as FeedbackIcon,
-  Help as HelpIcon
+  Help as HelpIcon,
+  PictureAsPdf as PdfIcon,
+  
 } from "@mui/icons-material";
 import { Link, useLocation } from 'react-router-dom';
 import { PersonAdd as PersonAddIcon, LockOpen as LockOpenIcon } from '@mui/icons-material';
@@ -121,6 +123,13 @@ function Menu() {
           </ListItemIcon>
           <ListItemText primary="Feedback" />
         </ListItem>
+
+        <ListItem button component={Link} to="/PdfGenerator" onClick={toggleDrawer(false)}>
+                <ListItemIcon>
+                    <PdfIcon color='primary' />
+                </ListItemIcon>
+                <ListItemText primary="PdfGenerator" />
+            </ListItem>
 
 <ListItem>
             <Button component={Link} to="/SignUp" color="primary" startIcon={<PersonAddIcon />}>

@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 
 function MainFeaturedPost(props) {
   const { post } = props;
+  // console.log('featuredPost:', post)
 
   return (
     <Paper
@@ -49,7 +50,7 @@ function MainFeaturedPost(props) {
             <Typography variant="h5" color="inherit" paragraph>
               {post.description}
             </Typography>
-            <Link variant="subtitle1" href="#">
+            <Link variant="subtitle1" href={post.link} target="_blank" rel="noopener noreferrer">
               {post.linkText}
             </Link>
           </Box>

@@ -36,7 +36,7 @@ function Map() {
             download: true,
             delimiter: ',',
             complete: (result) => {
-              console.log(result.data); // Log the parsed data to check its structure
+              // console.log(result.data); // Log the parsed data to check its structure
       
               const parsedData = result.data
                 .filter((row) => !isNaN(parseFloat(row[1])) && !isNaN(parseFloat(row[0])))
