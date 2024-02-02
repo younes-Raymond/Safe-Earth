@@ -32,8 +32,10 @@ Congratulations! The app is now running successfully. You can start contributing
 
 Watch our video to learn more about SafEarth Relief App and our mission to make a meaningful difference in the lives of people worldwide.
 
-<video width="560" height="315" controls>
-    <source src="https://res.cloudinary.com/dktkavyr3/video/upload/v1706898208/introduction_Safe_Earth_fbzeas.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
+### Video Introduction
+
+[![Watch the Video Introduction](https://example.com/path/to/your/thumbnail.jpg)](https://res.cloudinary.com/dktkavyr3/video/upload/v1706898208/introduction_Safe_Earth_fbzeas.mp4)
+
+Click the image to watch our video and learn more about the SafEarth Relief App and our mission to make a meaningful difference in the lives of people worldwide.
+
 
