@@ -27,7 +27,15 @@ To start the app, follow these steps:
 
 Congratulations! The app is now running successfully. You can start contributing to this noble mission. Thank you for joining us on this journey!
 
-## Screenshots
 
-![Screenshot 1](./images/screenshot1.png)
-![Screenshot 2](./images/screenshot2.png)
+### Video Introduction
+
+Watch our video to learn more about SafEarth Relief App and our mission to make a meaningful difference in the lives of people worldwide.
+
+### Video Introduction
+
+[![Watch the Video Introduction]](https://res.cloudinary.com/dktkavyr3/video/upload/v1706898208/introduction_Safe_Earth_fbzeas.mp4)
+
+Click the image to watch our video and learn more about the SafEarth Relief App and our mission to make a meaningful difference in the lives of people worldwide.
+
+
