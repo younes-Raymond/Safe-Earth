@@ -11,8 +11,14 @@ import {
   Button,
   IconButton,
   Card,
-  CardContent
+  Dialog,
+  DialogTitle,
+  CardContent,
+  DialogContent, 
+  DialogActions,
 } from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MapIcon from '@mui/icons-material/Map';
 import LanguageIcon from '@mui/icons-material/Language';
@@ -25,7 +31,7 @@ import { styled } from '@mui/system';
 import Switch from '@mui/material/Switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
+import { uploadCsvFileToServer } from '../../actions/userAction'
 const leafletMapStyles = [
   { title: 'Streets', value: 'streets' },
   { title: 'Satellite', value: 'satellite' },
@@ -44,9 +50,8 @@ const languageOptions = [
 
 
 const SettingsPage = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [mapStyle, setMapStyle] = useState('');
+  const defaultMapStyle = 'Streets';
+  const [mapStyle, setMapStyle] = useState(defaultMapStyle);
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
@@ -55,14 +60,56 @@ const SettingsPage = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [darkMode, setDarkMode] = React.useState(false);
+  const [csvData, setCsvData] = React.useState('');
+  const [openDialog, setOpenDialog] = useState(false);
+
+
 
   const handleSave = () => {
     // Add logic to save the settings
     console.log('Settings saved!');
   };
 
+
+  const handleFileUpload = () => {
+    // Convert the CSV data to an array of lines
+    const lines = csvData.split('\n');
+
+    // Prepare the data for uploading to the server
+    const dataToSend = lines.map((line) => {
+      const [lat, lon, name, details] = line.split(',');
+      return { lat, lon, name, details };
+    });
+
+    // Call the function to upload the prepared data to the server
+    uploadCsvFileToServer(dataToSend)
+      .then((data) => {
+        console.log('Response from server:', data);
+      })
+      .catch((error) => {
+        console.error('Error uploading CSV file:', error);
+      });
+  };
+
+  const handleFileSelect = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setCsvData(e.target.result);
+      };
+      reader.readAsText(file);
+    }
+  };
+
+
   const handleDarkModeToggle = () => {
     setDarkMode((prevMode) => !prevMode);
+  };
+
+
+  const handleMapStyleChange = (_, newValue) => {
+    setMapStyle(newValue);
   };
 
   const DarkModeSwitch = styled(Switch)(({ theme }) => ({
@@ -122,11 +169,6 @@ const SettingsPage = () => {
         height: '100vh',
       }}
     >
-  
-
-
-
-
 
       <Box
         sx={{
@@ -175,18 +217,20 @@ const SettingsPage = () => {
         
 
         <Box display="flex" flexDirection="column" mb={2}>
-          <Box mb={2} display="flex" alignItems="center" sx={{ width: '90%' }}>
-            <MapIcon sx={{ mr: 2 }} />
-            <Autocomplete
-              id="map-style"
-              options={leafletMapStyles}
-              getOptionLabel={(option) => option.title}
-              value={mapStyle}
-              onChange={(_, newValue) => setMapStyle(newValue)}
-              renderInput={(params) => <TextField {...params} label="How Maps Look Like" />}
-              style={{ width: '100%' }}
-            />
-          </Box>
+
+        <Box mb={2} display="flex" alignItems="center" sx={{ width: '90%' }}>
+      <MapIcon sx={{ mr: 2 }} />
+      <Autocomplete
+        id="map-style"
+        options={leafletMapStyles}
+        getOptionLabel={(option) => option.title}
+        value={mapStyle}
+        onChange={handleMapStyleChange}
+        renderInput={(params) => <TextField {...params} label="How Maps Look Like" />}
+        style={{ width: '100%' }}
+      />
+    </Box>
+
 
           <Box mb={2} display="flex" alignItems="center" sx={{ width: '90%' }}>
             <LanguageIcon sx={{ mr: 2 }} />
@@ -280,13 +324,61 @@ const SettingsPage = () => {
             />
           </Box>
         
+      <Box display="flex" alignItems="center">
+        <TextField
+          label="CSV Data"
+          multiline
+          rows={10}
+          value={csvData}
+          onChange={(e) => setCsvData(e.target.value)}
+          fullWidth
+        />
+        <input
+          accept=".csv"
+          style={{ display: 'none' }}
+          id="contained-button-file"
+          multiple={false}
+          type="file"
+          onChange={handleFileSelect}
+        />
+    <IconButton component="span">
+      <CloudUploadIcon />
+    </IconButton>
+  <IconButton onClick={() => setOpenDialog(true)}>
+    <HelpOutlineIcon />
+  </IconButton>
+      </Box>
+      <Typography variant="body1">
+        Example format:lat, lon, name, London Town etc.
+      </Typography>
+      <Button variant="contained" onClick={handleFileUpload}>Upload CSV File</Button>
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+        <DialogTitle>CSV Data Format</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            Please enter the CSV data in the following format:
+            <br />
+            <br />
+            Latitude, Longitude, Name, Details if applicable
+            <br />
+            For example:
+            <br />
+            -8.4162805,31.3821957,TALAMANZOU,TALAMANZOU
+            <br />
+            -8.4410987,31.2326184,2OUIAT SIDI BOUATHMANE,ZAOUIAT SIDI BOUATHMANE
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDialog(false)} color="primary">Close</Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
 
           <Button variant="contained" onClick={handleSave}>
             Save
           </Button>
         </Box>
       </Box>
-    </Box>
   );
 };
 

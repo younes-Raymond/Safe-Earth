@@ -8,15 +8,22 @@ import Papa from 'papaparse'
 import { DivIcon } from 'leaflet'; 
 import L from 'leaflet';
 import VillageData from './Douars50km.csv' 
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import {LocationOnIcon} from '@mui/icons-material';
 import { renderToStaticMarkup } from 'react-dom/server';
 import markerIcon from  './markerIcon.png'
-import { Typography, Button , Paper , Box} from '@mui/material';
+import { Typography, Button , Paper , Box, IconButton} from '@mui/material';
 import MoreInfoIcon from '@mui/icons-material/Info';
 import DonateIcon from '@mui/icons-material/AttachMoney';
+import axios from 'axios';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+
 function Map() {
     const [pushPins, setPushPins] = React.useState([]);
     const [mapInstance, setMapInstance] = useState(null);
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [selectedPublicId, setSelectedPublicId] = useState(null);
+
+
 
       const customIcon = new L.Icon({
         iconUrl: markerIcon,
@@ -26,9 +33,6 @@ function Map() {
       });
 
      
-    
-     
-   
 
       useEffect(() => {
         const fetchParseData = async () => {
@@ -50,7 +54,9 @@ function Map() {
                 position: [village.latitude, village.longitude],
                 options: {
                   title: village.name,
+                  imageUrl:'https://res.cloudinary.com/dktkavyr3/image/upload/v1707411973/w3fug2ahr96x9jcesrwp.jpg'
                 },
+
               }));
       
               setPushPins(pushPinsData);
@@ -75,7 +81,36 @@ const handleMapCreated = (map) => {
     setMapInstance(map);
 };
 
+const handleImageClick = (publicId) => {
+  setSelectedPublicId(publicId); // Update the selected public ID
+  const fileInput = document.getElementById('fileInput');
+  fileInput.click();
+};
 
+const handleFileChange = (event) => {
+  const files = event.target.files;
+  console.log(files)
+  const selectedFilesArray = Array.from(files).slice(0 , 3);
+  setSelectedFiles(selectedFilesArray);
+  uploadFilesToCloudinary()
+};
+
+const uploadFilesToCloudinary = async () => {
+  const formData = new FormData();
+  selectedFiles.forEach(file => {
+      formData.append('file', file);
+      formData.append('upload_preset', 'lfwld9b0');
+  });
+
+  try {
+      const response = await axios.post('https://api.cloudinary.com/v1_1/dktkavyr3/image/upload', formData);
+      console.log('Cloudinary upload response:', response.data);
+      // Handle response from Cloudinary as needed
+  } catch (error) {
+      console.error('Error uploading to Cloudinary:', error);
+      // Handle error as needed
+  }
+};
 
 
 
@@ -104,39 +139,59 @@ const position = [31.07317457220632, -8.406957080277902]
         icon={customIcon}
       >
      
+     <Popup>
+     <Paper style={{ width: '90%', padding: '10px', maxHeight: '320px', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
 
-<Popup>
-  <Paper style={{ width: '200px', padding: '10px', height: '150px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <Typography variant="h6">{pin.options.title}</Typography>
-      <Typography variant="h6">{pin.position}</Typography>
-    </Box>
-    <Button
-      variant="contained"
-      color="primary"
-      startIcon={<MoreInfoIcon />}
-      onClick={handleMoreInfoClick}
-    >
-      More Info
-    </Button>
-    <Link to='CheckOut'>
+                            <Box
+                                display="flex"
+                                flexDirection="column"
+                                alignItems="center"
+                                position='relative'
+                                cursor="pointer"
+                                onClick={() => handleImageClick(pin.publicId)} // Pass the public ID to the click handler
+                            >
+                                
+                                    add images!
+                        <IconButton color="primary">
+                          <AddPhotoAlternateIcon />
+                        </IconButton>
+                                <input
+                                    id="fileInput"
+                                    type="file"
+                                    accept=".jpg,.jpeg,.png,.gif,.*"
+                                    style={{ display: 'none' }}
+                                    onChange={handleFileChange}
+                                    multiple
+                                />
+                                <Typography variant="h6">{pin.options.title}</Typography>
+                                <Typography variant="h6">{pin.position}</Typography>
 
-    <Button
-      variant="contained"
-      color="secondary"
-      startIcon={<DonateIcon />}
-      // onClick={handleDonateClick}
-    >
-
-
-      Donate
-    </Button>
-    </Link>
-
-  </Paper>
-</Popup> 
-
-
+                                <img
+                                    src={pin.options.imageUrl}
+                                    alt='Default ImgVillage'
+                                    style={{maxWidth:'100%', margin:'10px', borderRadius:'5px'}}
+                                />
+                            </Box>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                startIcon={<MoreInfoIcon />}
+                                onClick={handleMoreInfoClick}
+                                style={{ marginBottom: '10px' }}
+                            >
+                                More Info
+                            </Button>
+                            <Link to='CheckOut'>
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    startIcon={<DonateIcon />}
+                                >
+                                    Donate
+                                </Button>
+                            </Link>
+                        </Paper>
+                    </Popup>
       </Marker>
     ))}
 

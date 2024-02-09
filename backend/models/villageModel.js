@@ -1,24 +1,36 @@
+// Import Mongoose
 const mongoose = require('mongoose');
 
-const villageSchema = new mongoose.Schema({
-  X: {
-    type: Number,
-    required: true,
+// Define the schema
+const VillageSchema = new mongoose.Schema({
+  position: {
+    type: [Number], // Array of numbers [latitude, longitude]
+    required: true
   },
-  Y: {
-    type: Number,
-    required: true,
-  },
-  Name: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
+  options: {
+    type: {
+      title: {
+        type: String,
+        required: true
+      },
+      images: {
+        type: {
+          publicId: {
+            type: String,
+            required: true
+          },
+          url: {
+            type: String,
+            required: true
+          }
+        },
+        required: true
+      }
+    },
+    required: true
+  }
 });
 
-const Village = mongoose.model('Village', villageSchema);
-
+// Create and export the model
+const Village = mongoose.model('Village', VillageSchema);
 module.exports = Village;

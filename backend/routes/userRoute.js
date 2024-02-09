@@ -1,10 +1,10 @@
 const express = require('express');
-// const { sendContentOfTxtFiles } = require('../controllers/userController');
+ const { uploadAndSaveCsvFiles } = require('../controllers/userController');
 
 const router = express.Router();
 
 // Your other route definitions...
 
 // router.post('/perform-ocr', performOCR);
-// router.get('/getTextContent', sendContentOfTxtFiles)
+router.post('/UploadAndSaveCsvFiles', uploadAndSaveCsvFiles);
 module.exports = router;

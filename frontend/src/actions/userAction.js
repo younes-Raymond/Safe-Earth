@@ -27,3 +27,14 @@ return res.data
   }
 };
 
+
+
+export const uploadCsvFileToServer = async (file) => {
+  try {
+    const res = await axios.post('./api/v1/uploadScvFile', file)
+    console.log(res.data);
+    return res.data
+  } catch (error) {
+    console.error('error getting results of scv file:', error)
+  }
+}
