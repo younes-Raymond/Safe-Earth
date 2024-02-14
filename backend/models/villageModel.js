@@ -4,33 +4,43 @@ const mongoose = require('mongoose');
 // Define the schema
 const VillageSchema = new mongoose.Schema({
   position: {
-    type: [Number], // Array of numbers [latitude, longitude]
+    lat: {
+      type:Number,
+      required:true
+    },
+    lon: {
+      type:Number,
+      required:true
+    }
+  },
+
+  name: {
+    type: String,
     required: true
   },
-  options: {
-    type: {
-      title: {
+
+  details: {
+    type: String,
+    required: false,
+  },
+  moreImages: [
+    {
+      publicId: {
         type: String,
-        required: true
+        required: false
       },
-      images: {
-        type: {
-          publicId: {
-            type: String,
-            required: true
-          },
-          url: {
-            type: String,
-            required: true
-          }
-        },
-        required: true
+      url: {
+        type: String,
+        required: false
       }
-    },
-    required: true
+    }
+  ],
+  donate: {
+    type: Number,
+    default: 0
   }
 });
 
 // Create and export the model
-const Village = mongoose.model('Village', VillageSchema);
+const Village = mongoose.model('Villages', VillageSchema);
 module.exports = Village;

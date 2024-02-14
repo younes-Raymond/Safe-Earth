@@ -8,10 +8,6 @@ function HomePage() {
 
   return (
     <div>
-       <div className="NavBar">
-        <NavBar />
-      </div>
-    
       <div className="Menu-Container">
         <Menu />
       </div>

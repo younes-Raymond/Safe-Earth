@@ -7,23 +7,23 @@ import { Link } from 'react-router-dom';
 import Papa from 'papaparse'
 import { DivIcon } from 'leaflet'; 
 import L from 'leaflet';
-import VillageData from './Douars50km.csv' 
-import {LocationOnIcon} from '@mui/icons-material';
-import { renderToStaticMarkup } from 'react-dom/server';
 import markerIcon from  './markerIcon.png'
 import { Typography, Button , Paper , Box, IconButton} from '@mui/material';
 import MoreInfoIcon from '@mui/icons-material/Info';
 import DonateIcon from '@mui/icons-material/AttachMoney';
 import axios from 'axios';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import { getAllVillagesData } from '../../actions/userAction'
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 function Map() {
     const [pushPins, setPushPins] = React.useState([]);
-    const [mapInstance, setMapInstance] = useState(null);
-    const [selectedFiles, setSelectedFiles] = useState([]);
-    const [selectedPublicId, setSelectedPublicId] = useState(null);
-
-
+    const [mapInstance, setMapInstance] = React.useState(null);
+    const [selectedFiles, setSelectedFiles] = React.useState([]);
+    const [selectedPublicId, setSelectedPublicId] = React.useState(null);
+    const [villagesData, setVillagesData] = useState([]);
+    
 
       const customIcon = new L.Icon({
         iconUrl: markerIcon,
@@ -33,39 +33,30 @@ function Map() {
       });
 
      
-
-      useEffect(() => {
-        const fetchParseData = async () => {
-          Papa.parse(VillageData, {
-            download: true,
-            delimiter: ',',
-            complete: (result) => {
-              // console.log(result.data); // Log the parsed data to check its structure
-      
-              const parsedData = result.data
-                .filter((row) => !isNaN(parseFloat(row[1])) && !isNaN(parseFloat(row[0])))
-                .map((row) => ({
-                  latitude: parseFloat(row[1]),
-                  longitude: parseFloat(row[0]),
-                  name: row[2],
-                }));
-      
-              const pushPinsData = parsedData.map((village) => ({
-                position: [village.latitude, village.longitude],
-                options: {
-                  title: village.name,
-                  imageUrl:'https://res.cloudinary.com/dktkavyr3/image/upload/v1707411973/w3fug2ahr96x9jcesrwp.jpg'
-                },
-
-              }));
-      
-              setPushPins(pushPinsData);
-            },
-          });
+      React.useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getAllVillagesData();
+                // console.log(typeof data);
+                console.log(data);  
+                setVillagesData(data);
+            } catch (error) {
+                console.error('Error fetching village data:', error);
+            }
         };
-        fetchParseData();
-      }, [mapInstance]);
-      
+    
+        fetchData(); // Call the async function immediately
+    }, []);
+    
+    
+    
+
+    const handleBackupCSV = () => {
+      console.log('Backup CSV button clicked!');
+      // Add your logic for handling the backup CSV functionality here
+    };
+    
+
 
 
 
@@ -73,8 +64,9 @@ const handlePushpinClick = () => {
         console.log("handlePushpinClick");
 };
     
-const handleMoreInfoClick = () => {
+const handleMoreInfoClick = (id) => {
         console.log("hansssadleMoreInfoClick");
+        alert(`hello this is id : ${id}`)      
 };
 
 const handleMapCreated = (map) => {
@@ -112,91 +104,127 @@ const uploadFilesToCloudinary = async () => {
   }
 };
 
-
-
-
+// const position = [31.07317457220632, -8.406957080277902]
 const position = [31.07317457220632, -8.406957080277902]
  // Create a custom icon using the provided image
 
+const handleDonateClick = async (id) => {
+  console.log('handleDonateClick:')
+} 
+ 
 
- return (
-    <MapContainer
-      center={position}
-      zoom={9.5}
+return (
+  <MapContainer
+    center={position}
+    zoom={9.5}
+    style={{ height: '700px', width: '100%' }}
+  >
+    <TileLayer
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    />
 
-      style={{ height: '700px', width: '100%' }}
-    >
-      <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-
-/>
-
-      {pushPins.map((pin, index) => (
+    {villagesData.map((details, index) => (
       <Marker
-        key={index}
-        position={pin.position}
-        icon={customIcon}
+        key={details._id}
+        position={[details.position.lon, details.position.lat]} // lon is first and lat seconde always remember this 
+        icon={customIcon} // Use this line if you want to use a custom icon
       >
-     
-     <Popup>
-     <Paper style={{ width: '90%', padding: '10px', maxHeight: '320px', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
 
-                            <Box
-                                display="flex"
-                                flexDirection="column"
-                                alignItems="center"
-                                position='relative'
-                                cursor="pointer"
-                                onClick={() => handleImageClick(pin.publicId)} // Pass the public ID to the click handler
-                            >
-                                
-                                    add images!
-                        <IconButton color="primary">
-                          <AddPhotoAlternateIcon />
-                        </IconButton>
-                                <input
-                                    id="fileInput"
-                                    type="file"
-                                    accept=".jpg,.jpeg,.png,.gif,.*"
-                                    style={{ display: 'none' }}
-                                    onChange={handleFileChange}
-                                    multiple
-                                />
-                                <Typography variant="h6">{pin.options.title}</Typography>
-                                <Typography variant="h6">{pin.position}</Typography>
+<Popup>
+        <Paper style={{ width: '90%', padding: '10px', maxHeight: '320px', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            position='relative'
+            cursor="pointer"
+          >
+            add images!
+            <IconButton color="primary"  
+              onClick={() => handleImageClick(details?.publicId)} // Pass the public ID to the click handler
+            >
+              <AddPhotoAlternateIcon />
+            </IconButton> 
+            <input
+              id="fileInput"
+              type="file"
+              accept=".jpg,.jpeg,.png,.gif,.*"
+              style={{ display: 'none' }}
+              multiple
+              onChange={handleFileChange}
+            />
+            <Box
+              key={details._id}
+              sx={{
+                border: '1px solid #ccc',
+                borderRadius: '5px',
+                padding: '10px',
+                marginBottom: '20px',
+                width:'100%',
+                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: '10px', display: 'flex', alignItems: 'center', width: '80%', height: 'auto', whiteSpace: 'nowrap' }}>
+                <LocationOnIcon sx={{ marginRight: '5px' }} color="primary" /> {details.name}
+              </Typography>
+              
+              <Typography variant="body1" sx={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
+                <MonetizationOnIcon sx={{ marginRight: '5px' }} color="primary" />
+                {details.donate}
+              </Typography>
 
-                                <img
-                                    src={pin.options.imageUrl}
-                                    alt='Default ImgVillage'
-                                    style={{maxWidth:'100%', margin:'10px', borderRadius:'5px'}}
-                                />
-                            </Box>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                startIcon={<MoreInfoIcon />}
-                                onClick={handleMoreInfoClick}
-                                style={{ marginBottom: '10px' }}
-                            >
-                                More Info
-                            </Button>
-                            <Link to='CheckOut'>
-                                <Button
-                                    variant="contained"
-                                    color="secondary"
-                                    startIcon={<DonateIcon />}
-                                >
-                                    Donate
-                                </Button>
-                            </Link>
-                        </Paper>
-                    </Popup>
+              {/* Display the image only if moreImages is not empty */}
+              {details.moreImages && details.moreImages.length > 0 ? (
+                <img
+                  src={details?.moreImages[0].url} // Use the first image if available
+                  alt='Village'
+                  style={{ maxWidth: '100%', borderRadius: '5px' }}
+                />
+              ) : (
+                <img
+                  src='https://res.cloudinary.com/dktkavyr3/image/upload/v1707411973/w3fug2ahr96x9jcesrwp.jpg' // Default image URL
+                  alt='Default Village'
+                  style={{ maxWidth: '100%', borderRadius: '5px' }}
+                />
+              )}
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  marginTop: '10px',
+                  alignItems: 'center',
+                  flexDirection:'coulmn',
+                  width:'100%',
+                }}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  startIcon={<MoreInfoIcon />}  
+                  onClick={() => handleMoreInfoClick(details._id)}
+                >
+                  More Info
+                </Button>
+                <Link to='CheckOut'>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<DonateIcon />}
+                  >
+                    Donate
+                  </Button>
+                </Link>
+              </Box>
+            </Box>
+          </Box>
+        </Paper>
+      </Popup>
       </Marker>
     ))}
-
-    </MapContainer>
-  );
+  </MapContainer>
+);
 
 
 

@@ -16,6 +16,7 @@ import {
   CardContent,
   DialogContent, 
   DialogActions,
+  Snackbar,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -31,7 +32,10 @@ import { styled } from '@mui/system';
 import Switch from '@mui/material/Switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { uploadCsvFileToServer } from '../../actions/userAction'
+import { uploadCsvDataToServer , downloadCsvFile } from '../../actions/userAction'
+import CircularProgress from '@mui/material/CircularProgress';
+import MuiAlert from '@mui/material/Alert';
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 const leafletMapStyles = [
   { title: 'Streets', value: 'streets' },
   { title: 'Satellite', value: 'satellite' },
@@ -50,8 +54,7 @@ const languageOptions = [
 
 
 const SettingsPage = () => {
-  const defaultMapStyle = 'Streets';
-  const [mapStyle, setMapStyle] = useState(defaultMapStyle);
+  const [mapStyle, setMapStyle] = useState(leafletMapStyles.title);
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
@@ -62,7 +65,11 @@ const SettingsPage = () => {
   const [darkMode, setDarkMode] = React.useState(false);
   const [csvData, setCsvData] = React.useState('');
   const [openDialog, setOpenDialog] = useState(false);
-
+  const [loading ,setLoading ] = React.useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarSeverity, setSnackbarSeverity] = useState('');
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [isDownloadSuccess, setIsDownloadSuccess] = useState(false);
 
 
   const handleSave = () => {
@@ -71,25 +78,50 @@ const SettingsPage = () => {
   };
 
 
-  const handleFileUpload = () => {
+
+  const handleFileUpload = async () => {
+    setLoading(true);
+
     // Convert the CSV data to an array of lines
     const lines = csvData.split('\n');
-
+ 
     // Prepare the data for uploading to the server
     const dataToSend = lines.map((line) => {
-      const [lat, lon, name, details] = line.split(',');
-      return { lat, lon, name, details };
-    });
+        const [lat, lon, name] = line.split(',');
 
+        // Check if the line has valid data (not empty and contains latitude, longitude, and name)
+        if (lat.trim() !== '' && lon.trim() !== '' && name.trim() !== '') {
+            return { lat: lat.trim(), lon: lon.trim(), name: name.trim() };
+        } else {
+            return null; // Return null for lines with missing or empty data
+        }
+    }).filter(item => item !== null); // Filter out null values (empty lines or lines with missing data)
+
+    
     // Call the function to upload the prepared data to the server
-    uploadCsvFileToServer(dataToSend)
-      .then((data) => {
-        console.log('Response from server:', data);
-      })
-      .catch((error) => {
-        console.error('Error uploading CSV file:', error);
-      });
-  };
+    console.log('dataToSend:', dataToSend);
+    try {
+      const res = await uploadCsvDataToServer(dataToSend);
+      console.log('res:', res);
+
+      // Show success snackbar
+      setSnackbarSeverity('success');
+      setSnackbarMessage('🎉 Data saved successfully! 🎉 Your villages data is ready for download.');
+      setSnackbarOpen(true);
+    } catch (error) {
+      console.error('Error saving villages:', error);
+
+      // Show error snackbar
+      setSnackbarSeverity('error');
+      setSnackbarMessage('😔 Internal Server Error');
+      setSnackbarOpen(true);
+    } finally {
+      setLoading(false);
+    }
+};
+
+
+
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
@@ -184,7 +216,6 @@ const SettingsPage = () => {
       >
         
         <Card
-
       sx={{
         p: 1,
         border: '1px solid #ddd',
@@ -206,17 +237,13 @@ const SettingsPage = () => {
           control={<DarkModeSwitch checked={darkMode} onChange={handleDarkModeToggle} />}
           label="Dark Mode"
         />
-          <FormControlLabel
-            control={<Switch />}
-            label="Toggle Switch 2"
-          />
         </FormGroup>
       </CardContent>
     </Card>
     
         
 
-        <Box display="flex" flexDirection="column" mb={2}>
+      <Box display="flex" flexDirection="column" mb={2}>
 
         <Box mb={2} display="flex" alignItems="center" sx={{ width: '90%' }}>
       <MapIcon sx={{ mr: 2 }} />
@@ -332,6 +359,7 @@ const SettingsPage = () => {
           value={csvData}
           onChange={(e) => setCsvData(e.target.value)}
           fullWidth
+          disabled={loading} //disable text enter when data loading to prevent error interval
         />
         <input
           accept=".csv"
@@ -341,37 +369,76 @@ const SettingsPage = () => {
           type="file"
           onChange={handleFileSelect}
         />
-    <IconButton component="span">
-      <CloudUploadIcon />
-    </IconButton>
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+<label htmlFor='contained-button-file'>
+  <IconButton component="span">
+    <CloudUploadIcon />
+  </IconButton>
+</label>
+
   <IconButton onClick={() => setOpenDialog(true)}>
     <HelpOutlineIcon />
   </IconButton>
       </Box>
+
       <Typography variant="body1">
         Example format:lat, lon, name, London Town etc.
       </Typography>
-      <Button variant="contained" onClick={handleFileUpload}>Upload CSV File</Button>
+
+      <Box
+  sx={{
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly'
+  }}
+>
+  <Button variant="contained" disabled={loading} onClick={handleFileUpload} startIcon={loading ? <CircularProgress size={24}  /> : <CloudUploadIcon />}>
+    Upload CSV File
+  </Button>
+</Box>
+
+
+
+
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle>CSV Data Format</DialogTitle>
         <DialogContent>
-          <Typography variant="body1">
-            Please enter the CSV data in the following format:
-            <br />
-            <br />
-            Latitude, Longitude, Name, Details if applicable
-            <br />
-            For example:
-            <br />
-            -8.4162805,31.3821957,TALAMANZOU,TALAMANZOU
-            <br />
-            -8.4410987,31.2326184,2OUIAT SIDI BOUATHMANE,ZAOUIAT SIDI BOUATHMANE
-          </Typography>
-        </DialogContent>
+  <Typography variant="body1">
+    Please enter the CSV data in the following format:
+    <br />
+    <br />
+    Latitude, Longitude, Name, Details if applicable
+    <br />
+    For example:
+    <br />
+    51.5074,-0.1278,London,Capital city of the United Kingdom
+    <br />
+    51.5074,-0.1278,Westminster,Administrative area in central London
+  </Typography>
+</DialogContent>
+
         <DialogActions>
           <Button onClick={() => setOpenDialog(false)} color="primary">Close</Button>
         </DialogActions>
       </Dialog>
+
+    
+      <Snackbar
+            open={snackbarOpen}
+            autoHideDuration={6000}
+            onClose={() => setSnackbarOpen(false)}
+          >
+            <MuiAlert
+              elevation={6}
+              variant="filled"
+              onClose={() => setSnackbarOpen(false)}
+              severity={snackbarSeverity}
+            >
+              {snackbarMessage}
+            </MuiAlert>
+          </Snackbar>
+
     </Box>
 
           <Button variant="contained" onClick={handleSave}>

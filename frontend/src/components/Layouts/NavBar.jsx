@@ -17,15 +17,18 @@ import {
   Grow,
   ClickAwayListener,
   Paper as SuggestionsPaper,
+  Snackbar,
+  Alert as MuiAlert
 
 } from '@mui/material';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationAddTwoToneIcon from '@mui/icons-material/NotificationAddTwoTone';
-import { Search as SearchIcon, FilterList as FilterIcon, } from "@mui/icons-material";
+import { Search as SearchIcon, FilterList as FilterIcon, CloudUpload as Upload , CloudDownload as Download, }  from "@mui/icons-material";
 import axios from 'axios';
-import zIndex from '@mui/material/styles/zIndex';
-import { sendQueryToDatabase } from '../../actions/userAction';
+import { sendQueryToDatabase, downloadCsvFile  } from '../../actions/userAction';
+import { Link } from 'react-router-dom';
+
 function NavBar() {
     const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false);
     const [isHovered, setIsHovered ] = useState(false);
@@ -35,7 +38,11 @@ function NavBar() {
     const bingMapsApiKey = "AhWIRQ2jlGpIYCjYkTns5knl56C05ervAIg4S_6cekLW_Gy864oVc8b4LBphnGLK";
     const anchorRef = useRef(null);
     const [searchQuery, setSearchQuery] = useState('');
-
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarSeverity, setSnackbarSeverity] = useState('');
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [isDownloadSuccess, setIsDownloadSuccess] = useState(false);
+  
 
     const fetchSuggestions = async () => {
       try {
@@ -113,6 +120,23 @@ function NavBar() {
     },
   };
 
+  const handleDownloadCsv = async () => {
+    try {
+      await downloadCsvFile();
+      setIsDownloadSuccess(true);
+      setSnackbarSeverity('success');
+      setSnackbarMessage('🎉 CSV file downloaded successfully!');
+      setSnackbarOpen(true);
+    } catch (error) {
+      console.error('Error handling CSV file download:', error);
+      setIsDownloadSuccess(false);
+      setSnackbarSeverity('error');
+      setSnackbarMessage('😔 Error downloading CSV file');
+      setSnackbarOpen(true);
+    }
+  };
+
+
   return (
     <>
 
@@ -152,6 +176,7 @@ function NavBar() {
               ref={anchorRef}
             />
           </Paper>
+          
           <IconButton sx={{ p: '5px', left: '50%' }} aria-label="filter" onClick={handleFilterClick}>
             <FilterIcon sx={{color:"white", width:"50px"}} />
           </IconButton>
@@ -168,9 +193,6 @@ function NavBar() {
         disablePortal
         placement="bottom-start"
         style={{zIndex:999}}
-        // sx={
-          
-        // }
       > 
         {({ TransitionProps }) => (
           <Grow {...TransitionProps}>
@@ -180,8 +202,6 @@ function NavBar() {
                   <List>
                     {suggestions.map((suggestion, index) => (
                       <ListItem key={index}>
-                            {/* <h2>results...</h2> */}
-                            {/* {console.log(suggestion?.name)} */}
                         <ListItemText primary={suggestion.name} />
                       </ListItem>
                     ))}
@@ -203,25 +223,20 @@ function NavBar() {
 <DialogContent>
   
 <List>
-            <ListItem button>
-              <ListItemIcon>
-                <NotificationsActiveIcon sx={{ color: 'red' }} />
-              </ListItemIcon>
-              <ListItemText primary="High Damage" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <NotificationsIcon sx={{ color: 'orange' }} />
-              </ListItemIcon >
-              <ListItemText primary="Medium Damage" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <NotificationAddTwoToneIcon sx={{ color: 'green' }} />
-              </ListItemIcon>
-              <ListItemText primary="Low Damage" />
-            </ListItem>
+  <ListItem button component={Link} to="/Settings">
+    <ListItemIcon>
+      <Upload color='primary' />
+    </ListItemIcon>
+    <ListItemText primary="Upload CSV or Follow Instructions for Data Entry" />
+  </ListItem>
+  <ListItem button onClick={handleDownloadCsv}>
+    <ListItemIcon>
+      <Download color='primary'/>
+    </ListItemIcon>
+    <ListItemText primary="Download Data Update as CSV From Database" />
+  </ListItem>
 </List>
+
 
 
 
@@ -229,6 +244,21 @@ function NavBar() {
 
 </DialogContent>
 </Dialog>
+
+<Snackbar
+            open={snackbarOpen}
+            autoHideDuration={6000}
+            onClose={() => setSnackbarOpen(false)}
+          >
+            <MuiAlert
+              elevation={6}
+              variant="filled"
+              onClose={() => setSnackbarOpen(false)}
+              severity={snackbarSeverity}
+            >
+              {snackbarMessage}
+            </MuiAlert>
+          </Snackbar>
 
 </>
 

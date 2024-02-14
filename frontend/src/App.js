@@ -8,9 +8,11 @@ import Blog from './components/Blogs/Blog';
 import Checkout from './components/payments/Checkout.jsx';
 import Settings from './components/Layouts/Settings.jsx';
 import PdfGenerator from './components/Home/docxGenerator.jsx'
+import  NavBar from './components/Layouts/NavBar.jsx'
 function App() {
   return (
     <Router>
+      <NavBar />
       <AppContent />
     </Router>
   );
@@ -22,7 +24,7 @@ function AppContent() {
 
   return (
     <>
-      {!isHomePage && <Menu />}
+      {!isHomePage && <Menu /> }
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/SignIn" element={<SignIn />} />

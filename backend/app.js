@@ -12,11 +12,10 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config({ path: '../config.env' }); 
 }
 
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.json());
 app.use(cookieParser());
-app.use(bodyParser.json({ limit: '50mb', extended: true }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-app.use(fileUpload());
 
 const material = require('./routes/productRoute');
 const user = require('./routes/userRoute');
