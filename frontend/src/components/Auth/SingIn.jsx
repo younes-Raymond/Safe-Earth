@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+import Alert from '@mui/material/Alert';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +12,11 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { signInUser } from '../../actions/userAction'
+import { useFormik } from 'formik';
+import { signInSchema } from './validationShema';
 
 function Copyright(props) {
   return (
@@ -28,17 +33,39 @@ function Copyright(props) {
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
+
 const defaultTheme = createTheme();
 
+
+
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [alert, setAlert] = useState(null);
+  const [alertSeverity, setAlertSeverity] = useState('success');
+  const navigate = useNavigate();
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: signInSchema,
+      onSubmit: async (values) => {
+      try {
+        const res = await signInUser(values);
+        console.log(res);
+        setAlert(null);
+        setAlertSeverity('success');
+        navigate('/settings');
+      } catch (error) {
+        console.error('Error signing in user:', error);
+        setAlert('Invalid email or password.');
+        setAlertSeverity('error');
+      }
+    },
+  });
+  
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -58,27 +85,39 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              // autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
+
+         
+<Box component="form" onSubmit={formik.handleSubmit} noValidate sx={{ mt: 1 }}>
+  <TextField
+    margin="normal"
+    required
+    fullWidth
+    id="email"
+    label="Email Address"
+    name="email"
+    autoComplete="email"
+    value={formik.values.email}
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    error={formik.touched.email && Boolean(formik.errors.email)}
+    helperText={formik.touched.email && formik.errors.email}
+  />
+  <TextField
+    margin="normal"
+    required
+    fullWidth
+    name="password"
+    label="Password"
+    type="password"
+    id="password"
+    autoComplete="current-password"
+    value={formik.values.password}
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+    error={formik.touched.password && Boolean(formik.errors.password)}
+    helperText={formik.touched.password && formik.errors.password}
+  />
+              
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -91,19 +130,28 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-            <Grid container>
+
+   <Grid container> 
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/SignUp" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
-          </Box>
+            {alert && (
+              <Alert severity={alertSeverity} sx={{ mt: 2 }} onClose={() => setAlert(null)}>
+                {alert}
+              </Alert>
+            )}
+  {/* Checkbox and Button components */}
+  {/* Alert component */}
+</Box>
+
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>

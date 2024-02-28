@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Menu from './Menu';
 import Map from './Map';
-import NavBar from '../Layouts/NavBar';
 import './style/Home.css'
 
 function HomePage() {
-
+// localStorage.removeItem('token')
   return (
     <div>
       <div className="Menu-Container">

@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 // Define the user schema
 const userSchema = new mongoose.Schema({
@@ -13,19 +15,54 @@ const userSchema = new mongoose.Schema({
     emailAddress: {
         type: String,
         required: true,
-        unique: true // Ensure email addresses are unique
+        unique: true 
     },
     password: {
         type: String,
         required: true
     },
+    role: {
+        type: String,
+        default: 'user'
+    },
+    referenceNumber: {
+        type: String,
+        required: function() {
+            return this.role === 'admin'; 
+        }
+    },
     receiveUpdates: {
         type: Boolean,
-        default: false // Default value for receiving updates
+        default: false 
     }
 });
 
+// Hash password before saving to database
+userSchema.pre('save', async function(next) {
+    if (!this.isModified('password')) {
+        return next();
+    }
+    try {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
+
+// Method to compare password
+userSchema.methods.comparePassword = async function(candidatePassword) {
+    return await bcrypt.compare(candidatePassword, this.password);
+};
+
+// Method to generate JWT token
+userSchema.methods.generateAuthToken = function() {
+    const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET);
+    return token;
+};
+
 // Create the User model
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('Users-SafeEarth', userSchema);
 
 module.exports = User;

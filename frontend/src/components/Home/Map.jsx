@@ -4,26 +4,24 @@ import { useEffect , useState,} from 'react';
 import { MapContainer, TileLayer , Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Link } from 'react-router-dom';
-import Papa from 'papaparse'
-import { DivIcon } from 'leaflet'; 
 import L from 'leaflet';
 import markerIcon from  './markerIcon.png'
-import { Typography, Button , Paper , Box, IconButton} from '@mui/material';
+import { Typography, Button , Paper , Box, IconButton, CircularProgress} from '@mui/material';
 import MoreInfoIcon from '@mui/icons-material/Info';
 import DonateIcon from '@mui/icons-material/AttachMoney';
 import axios from 'axios';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { getAllVillagesData } from '../../actions/userAction'
+import { getAllVillagesData , updatedetails} from '../../actions/userAction'
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import CustomImageList from '../Layouts/ImageGallery'
 
 function Map() {
-    const [pushPins, setPushPins] = React.useState([]);
-    const [mapInstance, setMapInstance] = React.useState(null);
     const [selectedFiles, setSelectedFiles] = React.useState([]);
     const [selectedPublicId, setSelectedPublicId] = React.useState(null);
-    const [villagesData, setVillagesData] = useState([]);
-    
+    const [villagesData, setVillagesData] = React.useState([]);
+    const [loading, setLoading ] = React.useState(false);
 
       const customIcon = new L.Icon({
         iconUrl: markerIcon,
@@ -32,13 +30,19 @@ function Map() {
         popupAnchor: [0, -32], // position the popup above the marker
       });
 
-     
+  
+// Remove token from local storage
+// localStorage.removeItem('token');
+
+  
+
+    
       React.useEffect(() => {
         const fetchData = async () => {
             try {
                 const data = await getAllVillagesData();
                 // console.log(typeof data);
-                console.log(data);  
+                // console.log(data);  
                 setVillagesData(data);
             } catch (error) {
                 console.error('Error fetching village data:', error);
@@ -48,30 +52,14 @@ function Map() {
         fetchData(); // Call the async function immediately
     }, []);
     
-    
-    
-
-    const handleBackupCSV = () => {
-      console.log('Backup CSV button clicked!');
-      // Add your logic for handling the backup CSV functionality here
-    };
-    
-
-
-
-
-const handlePushpinClick = () => {
-        console.log("handlePushpinClick");
-};
+        
     
 const handleMoreInfoClick = (id) => {
         console.log("hansssadleMoreInfoClick");
         alert(`hello this is id : ${id}`)      
 };
 
-const handleMapCreated = (map) => {
-    setMapInstance(map);
-};
+
 
 const handleImageClick = (publicId) => {
   setSelectedPublicId(publicId); // Update the selected public ID
@@ -79,43 +67,56 @@ const handleImageClick = (publicId) => {
   fileInput.click();
 };
 
-const handleFileChange = (event) => {
-  const files = event.target.files;
-  console.log(files)
-  const selectedFilesArray = Array.from(files).slice(0 , 3);
-  setSelectedFiles(selectedFilesArray);
-  uploadFilesToCloudinary()
-};
-
-const uploadFilesToCloudinary = async () => {
+const uploadFilesToCloudinary = async (documentId) => {
+  setLoading(true )
   const formData = new FormData();
   selectedFiles.forEach(file => {
       formData.append('file', file);
-      formData.append('upload_preset', 'lfwld9b0');
+      formData.append('upload_preset', 'qw4k1xjq');
   });
 
   try {
-      const response = await axios.post('https://api.cloudinary.com/v1_1/dktkavyr3/image/upload', formData);
-      console.log('Cloudinary upload response:', response.data);
-      // Handle response from Cloudinary as needed
+      const res = await axios.post('https://api.cloudinary.com/v1_1/dktkavyr3/image/upload', formData);
+      console.log('Cloudinary upload response:', res.data);
+        const updatedData =   await updatedetails(res.data, documentId);
+        setVillagesData(updatedData.villages)
+        console.log(updatedData)
+        // setSelectedFiles([]);
   } catch (error) {
       console.error('Error uploading to Cloudinary:', error);
       // Handle error as needed
+  } finally {
+    setLoading(false);
   }
 };
 
+
+
+
+const handleFileChange = (event, documentId) => {
+  const files = event.target.files;
+  console.log(files);
+  const selectedFilesArray = Array.from(files).slice(0, 3);
+  setSelectedFiles(selectedFilesArray);
+
+  // Check if there are selected files before uploading
+  if (selectedFilesArray.length > 0) {
+      uploadFilesToCloudinary(documentId);
+  }
+};
+
+
+
 // const position = [31.07317457220632, -8.406957080277902]
-const position = [31.07317457220632, -8.406957080277902]
+const Center = [31.07317457220632, -8.406957080277902]
  // Create a custom icon using the provided image
 
-const handleDonateClick = async (id) => {
-  console.log('handleDonateClick:')
-} 
+
  
 
 return (
   <MapContainer
-    center={position}
+    center={Center}
     zoom={9.5}
     style={{ height: '700px', width: '100%' }}
   >
@@ -123,16 +124,14 @@ return (
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     />
-
     {villagesData.map((details, index) => (
       <Marker
         key={details._id}
         position={[details.position.lon, details.position.lat]} // lon is first and lat seconde always remember this 
-        icon={customIcon} // Use this line if you want to use a custom icon
+        icon={customIcon} 
       >
-
 <Popup>
-        <Paper style={{ width: '90%', padding: '10px', maxHeight: '320px', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Paper style={{ width: '100%', padding: '10px', maxHeight: '320px', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
           <Box
             display="flex"
             flexDirection="column"
@@ -142,17 +141,19 @@ return (
           >
             add images!
             <IconButton color="primary"  
-              onClick={() => handleImageClick(details?.publicId)} // Pass the public ID to the click handler
+              onClick={() => handleImageClick(details?.publicId)} 
+              disabled={loading}
             >
               <AddPhotoAlternateIcon />
             </IconButton> 
+            {loading && <CircularProgress />}
             <input
               id="fileInput"
               type="file"
-              accept=".jpg,.jpeg,.png,.gif,.*"
+              accept=".jpg,.jpeg,.png"
               style={{ display: 'none' }}
-              multiple
-              onChange={handleFileChange}
+              // multiple
+              onChange={(event) => handleFileChange(event, details._id)}
             />
             <Box
               key={details._id}
@@ -174,20 +175,69 @@ return (
                 {details.donate}
               </Typography>
 
-              {/* Display the image only if moreImages is not empty */}
-              {details.moreImages && details.moreImages.length > 0 ? (
-                <img
-                  src={details?.moreImages[0].url} // Use the first image if available
-                  alt='Village'
-                  style={{ maxWidth: '100%', borderRadius: '5px' }}
-                />
-              ) : (
-                <img
-                  src='https://res.cloudinary.com/dktkavyr3/image/upload/v1707411973/w3fug2ahr96x9jcesrwp.jpg' // Default image URL
-                  alt='Default Village'
-                  style={{ maxWidth: '100%', borderRadius: '5px' }}
-                />
-              )}
+
+<Box key={details._id}>
+{details.moreImages && details.moreImages.length > 0 ? (
+    <Box >
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+       {details.moreImages && details.moreImages.length > 0 ? (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '20px'
+      }}
+    >
+
+      {details.moreImages.map((image, index) => (
+        // Check if the image object exists and has a valid URL
+        image && image.url ? (
+          <React.Fragment key={index}>
+            <img
+              src={image.url}
+              alt={`${index + 1}`}
+              style={{ maxWidth: '90%', borderRadius: '5px', marginBottom: '10px' }}
+            />
+          </React.Fragment>
+        ) : (
+          <img
+            key={index}
+            src='https://res.cloudinary.com/dktkavyr3/image/upload/v1707411973/w3fug2ahr96x9jcesrwp.jpg' // Default image URL
+            alt={`Default ${index + 1}`}
+            style={{ maxWidth: '90%', borderRadius: '5px', marginBottom: '10px' }}
+          />
+        )
+      ))}
+    </Box>
+) : (
+  <img
+    src='https://res.cloudinary.com/dktkavyr3/image/upload/v1707411973/w3fug2ahr96x9jcesrwp.jpg' // Default image URL
+    alt='Default Village'
+    style={{ maxWidth: '100%', borderRadius: '5px' }}
+  />
+)}
+
+      </Box>
+    </Box>
+) : (
+  <img
+    src='https://res.cloudinary.com/dktkavyr3/image/upload/v1707411973/w3fug2ahr96x9jcesrwp.jpg' // Default image URL
+    alt='Default Village'
+    style={{ maxWidth: '100%', borderRadius: '5px' }}
+  />
+)}
+
+</Box>
+
 
               <Box
                 sx={{

@@ -4,35 +4,32 @@ const ErrorHandler = require('../utils/errorHandler');
 const asyncErrorHandler = require('./asyncErrorHandler');
 
 exports.isAuthenticatedUser = asyncErrorHandler(async (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    console.log('authHeader:', authHeader);
 
-    const { token } = req.cookies;
+    // Check if the authorization header exists and contains the Bearer token
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+        // Remove the 'Bearer ' prefix to extract the token
+        const token = authHeader.split(' ')[1];
+        console.log('token:', token);
 
-    // Add a condition to allow unauthenticated access to the route
-    if (!token && req.allowUnauthenticated) {
-        return next();
+        try {
+            // Verify the token using the JWT_SECRET
+            const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+
+            // Retrieve the user from the database using the decoded user ID
+            req.user = await User.findById(decodedData.id);
+
+            // Call the next middleware
+            return next();
+        } catch (error) {
+            // If token verification fails, return a 401 Unauthorized error
+            return next(new ErrorHandler("Invalid Token", 401));
+        }
+    } else {
+        // If the authorization header is missing or does not contain the token, return a 401 Unauthorized error
+        return next(new ErrorHandler("Please Login to Access", 401));
     }
-
-    if (!token) {
-        return next(new ErrorHandler("Please Login to Access", 401))
-    }
-
-    const decodedData = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decodedData.id);
-    next();
-});
-
-
-exports.isAuthenticatedUser = asyncErrorHandler(async (req, res, next) => {
-
-    const { token } = req.cookies;
-
-    if (!token ) {
-        return next(new ErrorHandler("Please Login to Access", 401))
-    }
-
-    const decodedData = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decodedData.id);
-    next();
 });
 
 

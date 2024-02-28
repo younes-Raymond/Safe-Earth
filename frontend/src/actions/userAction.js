@@ -14,11 +14,10 @@ return res.data
 
 
 
-// Usage example:
 export const uploadCsvDataToServer = async (csvData) => {
   try {
     const res = await axios.post('/api/v1/uploadCsvData', csvData );
-    console.log('res:',res);
+    // console.log('res:',res);
     return res;
   } catch (error) {
     console.error('Error uploading CSV data:', error);
@@ -28,11 +27,10 @@ export const uploadCsvDataToServer = async (csvData) => {
 
 
 
-// Usage example:
 export const getAllVillagesData = async (csvData) => {
   try {
     const res = await axios.get('/api/v1/getAllVilagesData');
-    // console.log('res:',res);
+    console.log('res:',res);
     return res.data;
   } catch (error) {
     console.error('Error uploading CSV data:', error);
@@ -66,12 +64,75 @@ export const downloadCsvFile = async () => {
     document.body.removeChild(a);
 
     // Log the response data if needed
-    console.log(res.data);
+    // console.log(res.data);
 
     return res.data;
   } catch (error) {
     console.error('Error downloading CSV file:', error);
-    throw error; // Rethrow the error to handle it in the caller function if needed
+    throw error; 
+  }
+};
+
+
+
+export const signUpUser = async (userData) => {
+  try {
+    const res = await axios.post('/api/v1/signup', userData);
+    const { token } = res.data; 
+    localStorage.setItem('token', token); 
+    return res.data;
+  } catch (error) {
+    console.error('Error signing up user:', error);
+    throw error;
+  }
+};
+
+
+export const signInUser = async (userData) => {
+  try {
+    const res = await axios.post('/api/v1/signin', userData);
+    const { token } = res.data; 
+    localStorage.setItem('token', token); 
+    return res.data;
+  } catch (error) {
+    console.error('Error signing in user:', error);
+    throw error;
+  }
+};
+
+
+export const updatedetails = async (imageData) => {
+  try {
+    // Send the extracted data to the backend
+    const res = await axios.post('/api/v1/updatedetails', imageData);
+    console.log('Response from backend:', res.data);
+    return res.data;
+  } catch (error) {
+    console.error('Error sending data to backend:', error);
+    throw error;
+  }
+};
+
+export const saveSettingsAdmin = async (formData) => {
+  try {
+    const token = localStorage.getItem('token');
+
+    // Configure Axios to include the token in the request headers
+    const axiosConfig = {
+      headers: {
+        'Authorization': `Bearer ${token}` // Include the token in the 'Authorization' header
+      }
+    };
+
+    const res = await axios.post('/api/v1/savesettings', formData, axiosConfig);
+    console.log('Response with 200:', res.data);
+        
+    // Store the token in localStorage
+    localStorage.setItem('token', res.data.token);
+    return res.data 
+  } catch (error) {
+    console.error('Error sending formSettings to the server side:', error);
+    throw error;
   }
 };
 

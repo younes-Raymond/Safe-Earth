@@ -39,7 +39,7 @@ function NavBar() {
     const anchorRef = useRef(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarSeverity, setSnackbarSeverity] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('info');
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [isDownloadSuccess, setIsDownloadSuccess] = useState(false);
   
