@@ -125,10 +125,10 @@ export const saveSettingsAdmin = async (formData) => {
     };
 
     const res = await axios.post('/api/v1/savesettings', formData, axiosConfig);
-    console.log('Response with 200:', res.data);
+    // console.log('Response with 200:', res.data);
         
     // Store the token in localStorage
-    localStorage.setItem('token', res.data.token);
+    // localStorage.setItem('token', res.data.token);
     return res.data 
   } catch (error) {
     console.error('Error sending formSettings to the server side:', error);
