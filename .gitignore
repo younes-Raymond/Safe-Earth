@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-
+config.env
 production
 /build
 /.mp4

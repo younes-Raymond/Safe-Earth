@@ -2,11 +2,14 @@
     "name": "safe-earth",
     "version": "1.0.0",
     "description": "Full Stack safe-earth ReliefApp",
-    "main": "backend/server.js",
+    "main": "server.js",
     "scripts": {
-        "start": "node backend/server.js",
-        "server": "node backend/server.js"
-    },
+        "install-server": "cd backend && npm install",
+        "start-server": "cd backend && node server.js",
+        "install-client": "cd frontend && npm install",
+        "build-client": "cd frontend && npm run build",
+        "start-client": "cd frontend && npm run start"
+      },
     "author": "Younes Raymond",
     "license": "ISC",
     "dependencies": {
