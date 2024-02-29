@@ -4,11 +4,14 @@
     "description": "Full Stack safe-earth ReliefApp",
     "main": "backend/server.js",
     "scripts": {
-        "start": "node backend/server.js",
-        "server": "nodemon backend/server.js",
-        "frontend": "npm start --prefix frontend",
+        "build": "cd backend && npm install && cd ../frontend && npm install && npm run build",
+        "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+        "start:backend": "cd backend && npm start",
+        "start:frontend": "cd frontend && npm start",
+        "server": "/frontend/build/index.html",
         "dev": "concurrently \"npm run server\" \"npm run frontend\"",
-        "render-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend"
+        "install:all": "cd ../backend && npm install && cd ../frontend && npm install",
+        "create-build-folder": "mkdir -p build"
       },
     "author": "Younes Raymond",
     "license": "ISC",
