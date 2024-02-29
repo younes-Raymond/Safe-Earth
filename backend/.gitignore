@@ -19,7 +19,7 @@
 .env.production.local
 /jsonLogs
 backup/*.csv
-testEmails.csv
+/testEmails.csv
 package-lock.json
 /config
 CodeYourFuture's Festival of Diverse Talent Ldn10.pdf

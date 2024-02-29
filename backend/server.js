@@ -5,10 +5,6 @@ const connectDatabase = require('./config/database');
 const cloudinary = require('cloudinary');
 const PORT = process.env.PORT || 4000;
 const fs = require('fs');
-const  Tesseract  = require('tesseract.js');
-// const  { validate } = require('deep-email-validator') ;
-// const  csvParser = require('csv-parser') ;
-// const nodemailer = require('nodemailer')
 
 // UncaughtException Error
 process.on('uncaughtException', (err) => {

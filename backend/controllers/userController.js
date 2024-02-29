@@ -6,9 +6,10 @@ const User = require('../models/userModel');
 
 
 exports.getAllVilagesData = asyncErrorHandler(async (req, res) => {
+    console.log(req)
     try {
-        const villages = await Village.find(); // Fetch all documents from the Village collection
-        res.status(200).json(villages); // Return the villages as JSON response
+        const villages = await Village.find(); 
+        res.status(200).json(villages); 
     } catch (error) {
         console.error('Error fetching villages:', error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -174,6 +175,7 @@ exports.signUpUser = asyncErrorHandler(async (req, res) => {
     console.log(req.body);
     try {
         const { firstName, lastName, email, password, receiveUpdates } = req.body;
+
         // Create a new instance of the User model with the form data
         const user = new User({
             firstName: firstName,
@@ -182,19 +184,27 @@ exports.signUpUser = asyncErrorHandler(async (req, res) => {
             password: password,
             receiveUpdates: receiveUpdates
         });
+        console.log('User:', user);
 
         // Save the user to the database
         await user.save();
 
-        // Optionally, you can generate a JWT token for the user and return it
+        // Generate a JWT token for the user
         const token = user.generateAuthToken();
 
-        return res.status(201).json({ user, token }); // Return the user and token
+        // Log token and user information for debugging
+        console.log('Token:', token);
+
+        // Return the user and token
+        return res.status(201).json({ user, token });
     } catch (error) {
+        // Handle MongoDB duplicate key error
         if (error.code === 11000 && error.keyPattern && error.keyPattern.emailAddress) {
             return res.status(400).json({ message: 'Email address is already in use.' });
         } else {
+            // Log the error for debugging
             console.log('Error signing up user:', error);
+            // Return a 500 status response with an error message
             return res.status(500).json({ message: 'An error occurred while signing up the user.' });
         }
     }

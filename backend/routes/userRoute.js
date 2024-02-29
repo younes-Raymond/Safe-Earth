@@ -1,5 +1,5 @@
 const express = require('express');
-const { isAuthenticatedUser } = require('../middlewares/auth'); // Correct import statement
+const { isAuthenticatedUser } = require('../middlewares/auth');
 const { 
     uploadAndSaveCsvFiles,
     getAllVilagesData, 
@@ -14,12 +14,12 @@ const router = express.Router();
 
 // Define routes with authentication middleware
 
-router.post('/uploadCsvData', isAuthenticatedUser, uploadAndSaveCsvFiles);
+router.post('/uploadCsvData', uploadAndSaveCsvFiles);
 router.get('/getAllVilagesData',  getAllVilagesData);
-router.get('/downloadCsvFile', isAuthenticatedUser, downloadCsvFile);
+router.get('/downloadCsvFile', downloadCsvFile);
 router.post('/signup', signUpUser);
 router.post('/signin', signInUser);
-router.post('/updatedetails', isAuthenticatedUser, updatedetails);
-router.post('/savesettings', isAuthenticatedUser, savesettings);
+router.post('/updatedetails', updatedetails);
+router.post('/savesettings', savesettings);
 
 module.exports = router;
