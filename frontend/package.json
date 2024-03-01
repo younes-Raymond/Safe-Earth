@@ -2,7 +2,6 @@
   "name": "safeearth",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:4000",
   "scripts": {
     "start": "react-scripts start",
     "build": "set \"GENERATE_SOURCEMAP=false\" &&  react-scripts build",
