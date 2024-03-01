@@ -7,12 +7,12 @@
         position: "Website Developer Front-end Leaning",
         jobPostLink: "https://www.linkedin.com/jobs/search/?currentJobId=3841125593&geoId=101165590&keywords=Front-end%20%20fresher%20&location=United%20Kingdom&origin=JOB_SEARCH_PAGE_SEARCH_BUTTON&refresh=true",
         hiringManager: {
-            name: "David Dowdall",
-            position: "Founder / Technical Consultant",
-            profileLink: "https://www.linkedin.com/in/david-dowdall-64391a18/",
+          name: "David Dowdall",
+          position: "Founder / Technical Consultant",
+          profileLink: "https://www.linkedin.com/in/david-dowdall-64391a18/",
         },
         jobDescriptionSummary: "Wool Digital seeks a Website Developer Front-end Leaning to join our team. We focus on improving user experiences through creative collaboration.",
-    },
+      },
     {
         companyName: "Quantum",
         city: "Bournemouth",
