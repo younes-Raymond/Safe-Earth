@@ -6,7 +6,7 @@ services:
     ports:
       - "3000:3000"
     # env_file:
-    #   - config.env  
+      - config.env  
     volumes:
       - ./frontend:/usr/src/app
     depends_on:
@@ -17,7 +17,7 @@ services:
     ports:
       - "4000:4000"
     # env_file:
-    #   - config.env  
+      - config.env  
     volumes:
       - ./backend:/usr/src/app
     depends_on:
