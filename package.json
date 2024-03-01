@@ -4,11 +4,7 @@
     "description": "Full Stack safe-earth ReliefApp",
     "main": "backend/server.js",
     "scripts": {
-        "start": "npm run dev",
-        "server": "nodemon backend/server.js",
-        "frontend": "set PORT=3001 && npm start --prefix frontend",
-        "dev": "concurrently \"npm run server\" \"npm run frontend\"",
-        "render-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend"
+        "start": "node backend/server.js"
     },
     "author": "Younes Raymond",
     "license": "ISC",
