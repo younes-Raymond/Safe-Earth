@@ -9,6 +9,7 @@ import Checkout from './components/payments/Checkout.jsx';
 import Settings from './components/Layouts/Settings.jsx';
 import PdfGenerator from './components/Home/docxGenerator.jsx';
 import NavBar from './components/Layouts/NavBar.jsx';
+import CodeYourFutureMarianVolunteer from './components/code/CodeyourFuture.jsx';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -40,13 +41,14 @@ function AppContent() {
         <Route path="/" element={<HomePage />} />
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/Blog" element={<Blog />} />
+        <Route path="/Blog" element={<Blog />} />    
+        <Route path="/Mariana" element={<CodeYourFutureMarianVolunteer />} />
         <Route path="/CheckOut" element={<Checkout />} />
         <Route path="/Settings" element={<Settings />} />
         <Route path="/PdfGenerator" element={<PdfGenerator />} />
       </Routes>
     </>
-  );
+  );  
 }
 
 export default App;

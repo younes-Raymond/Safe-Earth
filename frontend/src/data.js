@@ -1,4 +1,4 @@
-export const companyLookingForCandidates = [
+ const companyLookingForCandidates = [
 
     {
         companyName: "Wool Digital",
@@ -287,3 +287,5 @@ export const companyLookingForCandidates = [
     }
 
 ];
+
+export default  companyLookingForCandidates
