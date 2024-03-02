@@ -5,11 +5,12 @@
     "main": "backend/server.js",
     "scripts": {
         "start": "npm run dev",
-        "server": "node  backend/server.js",
-        "frontend": "set PORT=3001 && cd frontend && npm install && npm start",
+        "server": "cd backend && npm install && node server.js",
+        "frontend": "cd frontend && npm install && npm start",
         "dev": "concurrently \"npm run server\" \"npm run frontend\"",
         "render-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend"
     },
+    
     "author": "Younes Raymond",
     "license": "ISC",
     "dependencies": {
