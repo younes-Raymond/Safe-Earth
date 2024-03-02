@@ -95,7 +95,7 @@ exports.uploadAndSaveCsvFiles = asyncErrorHandler(async (req, res) => {
             // Save the village to the database
             const savedVillage = await newVillage.save();
             savedVillages.push(savedVillage);
-            csvData += `"${latitude},${longitude}","${name}","${details}","${donate}"\n`;
+            csvData += `"${latitude},${longitude}","${name}","${details}","${donate}"\n`; //break line represent an object like How Sql databases works
             // Log the saved village data
             // console.log('Saved village:', savedVillage);
                 
@@ -103,7 +103,13 @@ exports.uploadAndSaveCsvFiles = asyncErrorHandler(async (req, res) => {
                 console.error(`Invalid latitude or longitude for village: ${name}`);
             }
         }
-        
+
+    // Before writing the CSV file, ensure that the backup directory exists
+const backupDirPath = './backup';
+if (!fs.existsSync(backupDirPath)) {
+    fs.mkdirSync(backupDirPath);
+}
+    
 // Write the CSV data to a file or create it if it doesn't exist
 const csvFilePath = './backup/villagesData.csv';
 fs.writeFileSync(csvFilePath, csvData);
@@ -120,6 +126,7 @@ while (fs.existsSync(copyFilePath)) {
 
 // Now copyFilePath contains the filename that doesn't exist yet
 fs.copyFileSync(csvFilePath, copyFilePath);
+
 
         // Construct the friendly message
         const message = "🎉 Data saved successfully! 🎉\n\nYour villages data is ready for download.";
