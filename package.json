@@ -6,7 +6,7 @@
     "scripts": {
         "start": "npm run dev",
         "server": "nodemon  backend/server.js",
-        "frontend": "set PORT=3001 && npm start --prefix frontend",
+        "frontend": "set PORT=3001 && cd frontend && npm install && npm start",
         "dev": "concurrently \"npm run server\" \"npm run frontend\"",
         "render-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend"
     },
