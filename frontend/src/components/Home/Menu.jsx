@@ -130,6 +130,13 @@ function Menu() {
                 </ListItemIcon>
                 <ListItemText primary="PdfGenerator" />
             </ListItem>
+            <ListItem button component={Link} to="/Mariana" onClick={toggleDrawer(false)}>
+                <ListItemIcon>
+                    {/* <PdfIcon color='primary' /> */}
+                    Mariana
+                </ListItemIcon>
+                <ListItemText primary="Code Your Future" />
+            </ListItem>
 
 <ListItem>
             <Button component={Link} to="/SignUp" color="primary" startIcon={<PersonAddIcon />}>
