@@ -11,11 +11,9 @@ import MoreInfoIcon from '@mui/icons-material/Info';
 import DonateIcon from '@mui/icons-material/AttachMoney';
 import axios from 'axios';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { getAllVillagesData , updatedetails} from '../../actions/userAction'
+import { getAllVillagesData , updateDetails} from '../../actions/userAction'
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import CustomImageList from '../Layouts/ImageGallery'
 
 function Map() {
     const [selectedFiles, setSelectedFiles] = React.useState([]);
@@ -30,9 +28,6 @@ function Map() {
         popupAnchor: [0, -32], // position the popup above the marker
       });
 
-  
-// Remove token from local storage
-// localStorage.removeItem('token');
 
   
 
@@ -67,24 +62,21 @@ const handleImageClick = (publicId) => {
   fileInput.click();
 };
 
-const uploadFilesToCloudinary = async (documentId) => {
-  setLoading(true )
+const uploadFileToCloudinary = async (file, documentId) => {
+  setLoading(true);
+  
   const formData = new FormData();
-  selectedFiles.forEach(file => {
-      formData.append('file', file);
-      formData.append('upload_preset', 'qw4k1xjq');
-  });
+  formData.append('file', file);
+  formData.append('upload_preset', 'qw4k1xjq');
 
   try {
-      const res = await axios.post('https://api.cloudinary.com/v1_1/dktkavyr3/image/upload', formData);
-      console.log('Cloudinary upload response:', res.data);
-        const updatedData =   await updatedetails(res.data, documentId);
-        setVillagesData(updatedData.villages)
-        console.log(updatedData)
-        // setSelectedFiles([]);
+    const res = await axios.post('https://api.cloudinary.com/v1_1/dktkavyr3/image/upload', formData);
+    console.log('Cloudinary upload response:', res.data);
+    const updatedData = await updateDetails(res.data, documentId);
+    setVillagesData(updatedData.villages);
   } catch (error) {
-      console.error('Error uploading to Cloudinary:', error);
-      // Handle error as needed
+    console.error('Error uploading to Cloudinary:', error);
+    // Handle error as needed
   } finally {
     setLoading(false);
   }
@@ -92,27 +84,23 @@ const uploadFilesToCloudinary = async (documentId) => {
 
 
 
-
 const handleFileChange = (event, documentId) => {
   const files = event.target.files;
   console.log(files);
-  const selectedFilesArray = Array.from(files).slice(0, 3);
-  setSelectedFiles(selectedFilesArray);
 
-  // Check if there are selected files before uploading
-  if (selectedFilesArray.length > 0) {
-      uploadFilesToCloudinary(documentId);
+  // Take only the first selected file
+  const selectedFile = files[0];
+
+  if (selectedFile) {
+    // Upload the single selected file to Cloudinary
+    uploadFileToCloudinary(selectedFile, documentId);
   }
-};
+}
 
 
 
-// const position = [31.07317457220632, -8.406957080277902]
+
 const Center = [31.07317457220632, -8.406957080277902]
- // Create a custom icon using the provided image
-
-
- 
 
 return (
   <MapContainer

@@ -16,14 +16,13 @@ import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { signUpUser } from '../../actions/userAction'
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { signUpSchema } from './validationShema';
+import { signUpSchema } from './validationShemas';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="https://github.com/younes-Raymond/Safe-Earth/">
         SafEarth
       </Link>{' '}
       {new Date().getFullYear()}

@@ -49,6 +49,9 @@ export const downloadCsvFile = async () => {
     // Create a blob object from the response data
     const blob = new Blob([res.data], { type: 'text/csv' });
 
+    console.log('type of data: ', typeof blob)
+    console.log('blob itself: ',blob)
+
     // Create a download link element
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -101,7 +104,7 @@ export const signInUser = async (userData) => {
 };
 
 
-export const updatedetails = async (imageData) => {
+export const updateDetails = async (imageData) => {
   try {
     // Send the extracted data to the backend
     const res = await axios.post('/api/v1/updatedetails', imageData);
@@ -135,4 +138,3 @@ export const saveSettingsAdmin = async (formData) => {
     throw error;
   }
 };
-
