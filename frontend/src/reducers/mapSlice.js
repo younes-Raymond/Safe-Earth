@@ -1,18 +1,20 @@
-// mapSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+// articlesReducer.js
+import { ADD_SUGGESTION } from '../constants/actionTypes';
 
-const mapSlice = createSlice({
-  name: 'map',
-  initialState: {
-    isUserInsideCircle: false,
-  },
-  reducers: {
-    setUserInsideCircle: (state, action) => {
-      state.isUserInsideCircle = action.payload;
-    },
-  },
-});
+const initialState = {
+  addSuggestion: null, // Remove articles field
+};
 
-export const { setUserInsideCircle } = mapSlice.actions;
-export default mapSlice.reducer;
+const articlesReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_SUGGESTION:
+      return {
+        ...state,
+        addSuggestion: action.payload,
+      };
+    default:
+      return state;
+  }
+};
 
+export default articlesReducer;

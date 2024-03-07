@@ -5,13 +5,13 @@ const asyncErrorHandler = require('./asyncErrorHandler');
 
 exports.isAuthenticatedUser = asyncErrorHandler(async (req, res, next) => {
     const authHeader = req.headers['authorization'];
-    console.log('authHeader:', authHeader);
+    // console.log('authHeader:', authHeader);
 
     // Check if the authorization header exists and contains the Bearer token
     if (authHeader && authHeader.startsWith('Bearer ')) {
         // Remove the 'Bearer ' prefix to extract the token
         const token = authHeader.split(' ')[1];
-        console.log('token:', token);
+        // console.log('token:', token);
 
         try {
             // Verify the token using the JWT_SECRET

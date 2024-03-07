@@ -49,9 +49,10 @@ exports.uploadAndSaveCsvFiles = asyncErrorHandler(async (req, res) => {
         for (let villageData of villagesData) {
             // Extract necessary fields from villageData
             let { lat, lon, name, details } = villageData;
+
                console.log('position:', lat,lon)
             // Check if latitude contains brackets and trim any whitespace
-            if (lat?.includes('[') || lat?.includes(']')) {
+            if (lat?.includes('[') ||  lat?.includes(']')) {
             lat = lat.replace('[', '').replace(']', '').trim(); 
             }
             // Check if longitude contains brackets and trim any whitespace
@@ -60,7 +61,7 @@ exports.uploadAndSaveCsvFiles = asyncErrorHandler(async (req, res) => {
             }
             // Check if name contains HTML tags or ']' character and remove them if they exist 
             if (name) {
-                if (/<([^>]+)>/.test(name)) {
+                if (/<([^>]+)>/.test(name)) { //regex test wil return a boalean value true ||  false , 
                     name = name.replace(/(<([^>]+)>)/gi, '');
                 }
                 if (name.includes(']')) {
@@ -79,7 +80,6 @@ exports.uploadAndSaveCsvFiles = asyncErrorHandler(async (req, res) => {
             // Check if latitude and longitude are valid numbers
             if (!isNaN(latitude) && !isNaN(longitude)) {
              
-
                 // Create a new Village object
                 const newVillage = new Village({
                     position: {
@@ -106,6 +106,7 @@ exports.uploadAndSaveCsvFiles = asyncErrorHandler(async (req, res) => {
 
     // Before writing the CSV file, ensure that the backup directory exists
 const backupDirPath = './backup';
+
 if (!fs.existsSync(backupDirPath)) {
     fs.mkdirSync(backupDirPath);
 }
@@ -142,13 +143,13 @@ fs.copyFileSync(csvFilePath, copyFilePath);
 
 
 
-
 exports.downloadCsvFile = asyncErrorHandler(async (req, res) => {
     console.log(req)
     try {
         // Fetch all villages from the database
         const villages = await Village.find();
-
+        
+          
         // Prepare CSV content header
         let csvContent = 'position,names,Donations,moreImagesUrl,moreImagesPublicId\n';
 
@@ -245,6 +246,8 @@ exports.signInUser = asyncErrorHandler(async (req, res) => {
 });
 
 
+
+
 exports.updatedetails = asyncErrorHandler(async (req, res) => {
     console.log(req.body)
   // Extract data from the request body
@@ -275,6 +278,21 @@ exports.updatedetails = asyncErrorHandler(async (req, res) => {
 
 
 
+// Define the function to search villages
+exports.searchVillages = async (req, res) => {
+    try {
+        const { query } = req.query; // Assuming the search query is passed as a query parameter
+        // Perform a case-insensitive search for village names that match the query
+        const villages = await Village.find({ name: { $regex: query, $options: 'i' } });
+        
+        res.status(200).json({ success: true, data: villages });
+    } catch (error) {
+        console.error('Error searching villages:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
+
+
 
 
 
@@ -288,6 +306,10 @@ exports.savesettings = asyncErrorHandler(async (req, res) => {
 
 
 
+exports.forgetPassword = asyncErrorHandler(async (req, res ) => {
+    console.log(req.body)
+    const  { email } = req.body.email     
+})
 
 
 

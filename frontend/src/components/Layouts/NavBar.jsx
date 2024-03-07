@@ -21,13 +21,12 @@ import {
   Alert as MuiAlert
 
 } from '@mui/material';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import NotificationAddTwoToneIcon from '@mui/icons-material/NotificationAddTwoTone';
 import { Search as SearchIcon, FilterList as FilterIcon, CloudUpload as Upload , CloudDownload as Download, }  from "@mui/icons-material";
 import axios from 'axios';
 import { sendQueryToDatabase, downloadCsvFile  } from '../../actions/userAction';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addSuggestion } from '../../actions/mapActions';
 
 function NavBar() {
     const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false);
@@ -37,16 +36,17 @@ function NavBar() {
     const [openSuggestions, setOpenSuggestions ] = useState(false);
     const bingMapsApiKey = "AhWIRQ2jlGpIYCjYkTns5knl56C05ervAIg4S_6cekLW_Gy864oVc8b4LBphnGLK";
     const anchorRef = useRef(null);
-    const [searchQuery, setSearchQuery] = useState('');
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarSeverity, setSnackbarSeverity] = useState('info');
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [isDownloadSuccess, setIsDownloadSuccess] = useState(false);
+    const dispatch = useDispatch();
   
 
-    const fetchSuggestions = async () => {
+    const fetchSuggestions = async (query) => {
       try {
-        const response = await axios.get(
+        // Fetch suggestions from Bing Maps API
+        const bingMapsResponse = await axios.get(
           `http://dev.virtualearth.net/REST/v1/Autosuggest`,
           {
             params: {
@@ -55,13 +55,27 @@ function NavBar() {
             },
           }
         );
-        const data = response.data;
-        console.log(data)
-        if (data.resourceSets && data.resourceSets[0].resources[0].value) {
-          const suggestedEntities = data.resourceSets[0].resources[0].value
-          // console.log(suggestedEntities)
-          setSuggestions(suggestedEntities);
-          setOpenSuggestions(true)
+        const bingMapsData = bingMapsResponse.data;
+        // console.log('Bing Maps data:', bingMapsData);
+    
+        // Fetch suggestions from your database
+        const databaseResponse = await sendQueryToDatabase(query);
+        const databaseData = databaseResponse.data;
+        // console.log('Database data:', databaseData);
+    
+        // Combine suggestions from both sources
+        let combinedSuggestions = [];
+        if (bingMapsData.resourceSets && bingMapsData.resourceSets[0].resources[0].value) {
+          combinedSuggestions = [...bingMapsData.resourceSets[0].resources[0].value];
+        }
+        if (databaseData.length > 0) {
+          combinedSuggestions = [...combinedSuggestions, ...databaseData];
+        }
+    
+        // Update state based on combined suggestions
+        if (combinedSuggestions.length > 0) {
+          setSuggestions(combinedSuggestions);
+          setOpenSuggestions(true);
         } else {
           setOpenSuggestions(false);
         }
@@ -70,7 +84,10 @@ function NavBar() {
         setOpenSuggestions(false);
       }
     };
+    
   
+  
+    
     useEffect(() => {
       if (query.trim() !== '') {
         fetchSuggestions();
@@ -80,18 +97,14 @@ function NavBar() {
       }
     }, [query]);
   
-    const handleSearch = (event) => {
-      // Implement your search logic here
-      setQuery(event.target.value)
-      setSearchQuery(event.target.value)
-      sendQueryToDatabase(searchQuery);
-      console.log('Searching for:', event.target.value);
+
+
+    const handleListItemClick = (suggestion) => {
+      console.log('Clicked suggestion:', suggestion);
+      dispatch(addSuggestion(suggestion)); // Dispatch action to update Redux store
     };
+    
   
-    // const handleKeyPress = (event) => {
-    //   if (event.key === 'Enter') {
-    //   }
-    // };
     
   const handleFilterClick = () => {
     console.log("Filter icon clicked");
@@ -136,7 +149,6 @@ function NavBar() {
     }
   };
 
-
   return (
     <>
 
@@ -168,13 +180,13 @@ function NavBar() {
               <SearchIcon />
             </IconButton>
             <InputBase
-              placeholder="Search for Village peaple and more......"
-              fullWidth
-              onChange={handleSearch}
-              // onKeyDown={handleKeyPress}
-              sx={{textAlign:"center", paddingLeft:"10%", ...inputPlaceHolderStyle, }}
-              ref={anchorRef}
-            />
+  placeholder="Search for Village people and more......"
+  fullWidth
+  onChange={(event) => fetchSuggestions(event.target.value)}
+  sx={{ textAlign: "center", paddingLeft: "10%", ...inputPlaceHolderStyle }}
+  ref={anchorRef}
+/>
+
           </Paper>
           
           <IconButton sx={{ p: '5px', left: '50%' }} aria-label="filter" onClick={handleFilterClick}>
@@ -192,7 +204,7 @@ function NavBar() {
         transition
         disablePortal
         placement="bottom-start"
-        style={{zIndex:999}}
+        style={{zIndex:999, maxHeight:'300px', overflow:'auto'}}
       > 
         {({ TransitionProps }) => (
           <Grow {...TransitionProps}>
@@ -200,11 +212,33 @@ function NavBar() {
               <ClickAwayListener onClickAway={() => setOpenSuggestions(false)}>
                 <SuggestionsPaper>
                   <List>
-                    {suggestions.map((suggestion, index) => (
-                      <ListItem key={index}>
-                        <ListItemText primary={suggestion.name} />
-                      </ListItem>
-                    ))}
+                  {suggestions.map((suggestion, index) => (
+
+                    suggestion && suggestion.name && (
+                  <ListItem
+                  key={index}
+                  onClick={() => handleListItemClick(suggestion)}
+                  sx={{
+                    backgroundColor: suggestion._id ? '#f0f0f0' : 'inherit',
+                    cursor: 'pointer',
+                    marginBottom: '8px', 
+                    padding: '8px 16px', 
+                    borderRadius: '8px',
+                    '&:hover': {
+                      backgroundColor: '#e0e0e0', 
+                    },
+                  }}
+                >
+                  <ListItemText primary={suggestion.name} />
+                </ListItem>
+                    )
+
+                
+
+
+
+
+              ))}
                   </List>
                 </SuggestionsPaper>
               </ClickAwayListener>

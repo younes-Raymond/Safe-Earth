@@ -3,8 +3,7 @@ import axios from 'axios';
 
 export const sendQueryToDatabase =  async (query) => {
   try {
-    const res  = await axios.get(`/api/v1/search/${query}`);
-    // console.log(res.data);
+    const res = await axios.get(`/api/v1/searchVillages?query=${query}`);
 return res.data
   } catch (error) {
    console.error('error getting results:', error)

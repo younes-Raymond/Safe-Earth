@@ -14,22 +14,22 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { getAllVillagesData , updateDetails} from '../../actions/userAction'
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-
+import { useSelector } from 'react-redux'; 
 function Map() {
-    const [selectedFiles, setSelectedFiles] = React.useState([]);
     const [selectedPublicId, setSelectedPublicId] = React.useState(null);
     const [villagesData, setVillagesData] = React.useState([]);
     const [loading, setLoading ] = React.useState(false);
-
+    const mapState = useSelector(state => state.map);
+    console.log('in Redux store',mapState) 
+    const [selectedSuggestion, setSelectedSuggestion] = useState(null);
+    
+    
       const customIcon = new L.Icon({
         iconUrl: markerIcon,
         iconSize: [25, 25], // adjust the size as needed
         iconAnchor: [16, 32], // half of the size to center the icon on the marker's position
         popupAnchor: [0, -32], // position the popup above the marker
       });
-
-
-  
 
     
       React.useEffect(() => {
@@ -47,13 +47,10 @@ function Map() {
         fetchData(); // Call the async function immediately
     }, []);
     
-        
-    
 const handleMoreInfoClick = (id) => {
         console.log("hansssadleMoreInfoClick");
         alert(`hello this is id : ${id}`)      
 };
-
 
 
 const handleImageClick = (publicId) => {
@@ -61,6 +58,8 @@ const handleImageClick = (publicId) => {
   const fileInput = document.getElementById('fileInput');
   fileInput.click();
 };
+
+
 
 const uploadFileToCloudinary = async (file, documentId) => {
   setLoading(true);
@@ -98,9 +97,9 @@ const handleFileChange = (event, documentId) => {
 }
 
 
-
-
 const Center = [31.07317457220632, -8.406957080277902]
+
+
 
 return (
   <MapContainer
@@ -259,6 +258,7 @@ return (
           </Box>
         </Paper>
       </Popup>
+
       </Marker>
     ))}
   </MapContainer>
