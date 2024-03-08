@@ -23,7 +23,7 @@ To start the app, follow these steps:
    ```
 2. Clone the repository:
    ```
-   git clone https://gitlab.com/BilalWorking/zalzal-app-frontend.git
+   git clone https://github.com/younes-Raymond/Safe-Earth.git
    ```
 3. Navigate to the root directory of the project:
    ```
