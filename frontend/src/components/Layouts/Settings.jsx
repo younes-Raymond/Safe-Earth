@@ -37,12 +37,21 @@ import { settingsSchema  } from '../Auth/validationShemas';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import{ DarkModeSwitch } from './DarkModeSwitch'
+import { OpenCycleMap } from '../../utils/MapLooksLike';
+
+
 
 const leafletMapStyles = [
-  { title: 'Streets', value: 'streets' },
-  { title: 'Satellite', value: 'satellite' },
-  { title: 'Outdoors', value: 'outdoors' },
-  // Add more Leaflet.js map styles as needed
+  { title: 'Cycle', value: 'Cycle' },
+  { title: 'Transport', value: 'Transport' },
+  { title: 'Landscape', value: 'Landscape' },
+  { title: 'Outdoors', value: 'Outdoors' },
+  { title: 'Transport Dark', value: 'Transport-dark' },
+  { title: 'Spinal Map', value: 'Spinal-map' },
+  { title: 'Pioneer', value: 'Pioneer' },
+  { title: 'Mobile Atlas', value: 'Mobile-atlas' },
+  { title: 'Neighbourhood', value: 'Neighbourhood' },
+  { title: 'Atlas', value: 'Atlas' }
 ];
 
 const languageOptions = [
@@ -68,7 +77,6 @@ const SettingsPage = () => {
   const [cities, setCities] = useState([]);
   const dispatch = useDispatch();
 
-  // Define your state variables and other necessary state management hooks
   const formik = useFormik({
     initialValues: {
       fullName:'',
@@ -96,10 +104,8 @@ const SettingsPage = () => {
   
 
   React.useEffect(() => {
-    // Fetch countries
     const fetchCountries = async () => {
       const countriesData = await Country.getAllCountries();
-      // console.log(countriesData)
       setCountries(countriesData);
     };
 
@@ -108,19 +114,15 @@ const SettingsPage = () => {
 
 
   const handleCountryChange = async (event, value) => {
-    // console.log('value: ',value)
     setSelectedCountry(value);
     formik.setFieldValue('selectedCountry', value); 
     formik.setFieldValue('selectedState', '');
-
     setStates([]);
     setCities([]);
-    // Fetch states of the selected country
     try {
       const statesData = await State.getStatesOfCountry(value);
-      // console.log('state data: ',statesData)
       setStates(statesData);
-      setSelectedState(''); // Reset selected state when changing the country
+      setSelectedState(''); 
     } catch (error) {
       console.error('Error fetching states:', error);
       
@@ -206,7 +208,7 @@ const handleFileSelect = (event) => {
           p: 3,
           border: '1px solid #ddd',
           borderRadius: 8,
-          width: '100%',
+          width: '90%',
           m: 1,
           left: '10%',
           overflowY: 'auto',  
@@ -252,22 +254,23 @@ const handleFileSelect = (event) => {
   <FormControl sx={{ minWidth: 200 }}>
     <InputLabel id="map-style-label">Maps Style</InputLabel>
     <Select
-    label="MapStyles"
-      labelId="map-style-label"
-      id="map-style"
-      value={formik.values.mapStyle}
-      onChange={formik.handleChange}
-      style={{ width: '100%' }}
-    >
-      {leafletMapStyles.map((style) => (
-        <MenuItem key={style.value} value={style.title}>
-          {style.title}
-        </MenuItem>
-      ))}
-    </Select>
+  label="MapStyles"
+  labelId="map-style-label"
+  id="map-style"
+  name='Map-Style'
+  value={formik.values.mapStyle}
+  onChange={formik.handleChange}
+  style={{ width: '100%' }}
+>
+  {leafletMapStyles.map((style) => (
+    <MenuItem key={style.value} value={style.title}>
+      {style.title}
+    </MenuItem>
+  ))}
+</Select>
+
   </FormControl>
 </Box>
-
 
     <Box mb={2} display="flex" alignItems="center" width='90%'>
   <LanguageIcon sx={{ mr: 2 }} />
@@ -277,7 +280,7 @@ const handleFileSelect = (event) => {
       label='Language'
       labelId="language-label"
       id="language"
-      name="selectedLanguage" // Add the name attribute
+      name="selectedLanguage"
       value={formik.values.selectedLanguage}
       onChange={formik.handleChange} // Use Formik's handleChange
     >

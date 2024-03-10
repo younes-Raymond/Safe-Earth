@@ -6,7 +6,7 @@ const User = require('../models/userModel');
 
 
 exports.getAllVilagesData = asyncErrorHandler(async (req, res) => {
-    console.log(req)
+    // console.log(req)
     try {
         const villages = await Village.find(); 
         res.status(200).json(villages); 
@@ -280,6 +280,7 @@ exports.updatedetails = asyncErrorHandler(async (req, res) => {
 
 // Define the function to search villages
 exports.searchVillages = async (req, res) => {
+    console.log(req.query)
     try {
         const { query } = req.query; // Assuming the search query is passed as a query parameter
         // Perform a case-insensitive search for village names that match the query
@@ -300,6 +301,7 @@ exports.searchVillages = async (req, res) => {
 
 
 exports.savesettings = asyncErrorHandler(async (req, res) => {
+    console.log(req.body)
     // Send response back to the client
     res.status(200).json({ message: "hey i got the req thanks" });
 });

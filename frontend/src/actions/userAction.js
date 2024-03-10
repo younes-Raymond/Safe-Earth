@@ -11,8 +11,6 @@ return res.data
   }
 };
 
-
-
 export const uploadCsvDataToServer = async (csvData) => {
   try {
     const res = await axios.post('/api/v1/uploadCsvData', csvData );
@@ -24,8 +22,6 @@ export const uploadCsvDataToServer = async (csvData) => {
   }
 };
 
-
-
 export const getAllVillagesData = async (csvData) => {
   try {
     const res = await axios.get('/api/v1/getAllVilagesData');
@@ -36,8 +32,6 @@ export const getAllVillagesData = async (csvData) => {
     throw error; // Rethrow the error to handle it in the caller function if needed
   }
 };
-
-
 
 export const downloadCsvFile = async () => {
   try {
@@ -75,8 +69,6 @@ export const downloadCsvFile = async () => {
   }
 };
 
-
-
 export const signUpUser = async (userData) => {
   try {
     const res = await axios.post('/api/v1/signup', userData);
@@ -88,7 +80,6 @@ export const signUpUser = async (userData) => {
     throw error;
   }
 };
-
 
 export const signInUser = async (userData) => {
   try {

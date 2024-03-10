@@ -13,7 +13,7 @@ const SettingsSchema = new Schema({
     required: true
   },
   associationNumber: {
-    type: String,
+    type: Number,
     required: true
   },
   mapStyle: {
@@ -26,7 +26,6 @@ const SettingsSchema = new Schema({
     enum: ['English', 'French', 'Arabic'],
     default: 'English'
   },
-  // Add more settings fields as needed
   userToken: {
     type: String,
     required: true
@@ -37,3 +36,8 @@ const SettingsSchema = new Schema({
 const Settings = mongoose.model('Settings', SettingsSchema);
 
 module.exports = Settings;
+
+
+
+
+

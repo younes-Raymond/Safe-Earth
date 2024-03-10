@@ -101,7 +101,7 @@ function NavBar() {
 
     const handleListItemClick = (suggestion) => {
       console.log('Clicked suggestion:', suggestion);
-      dispatch(addSuggestion(suggestion)); // Dispatch action to update Redux store
+      dispatch(addSuggestion(suggestion)); 
     };
     
   
@@ -167,12 +167,9 @@ function NavBar() {
             width: paperWidth,
             height:'50px',
             position: 'absolute', 
-            // left: '50%', 
-            // transform: 'translateX(-50%)', 
             top:'5px',
             transition: 'width 0.3s ease-in-out',
           }}
-
           onMouseEnter={handleOnmousEnter}
           onMouseLeave={handleMouseLeave}
           >
@@ -232,12 +229,6 @@ function NavBar() {
                   <ListItemText primary={suggestion.name} />
                 </ListItem>
                     )
-
-                
-
-
-
-
               ))}
                   </List>
                 </SuggestionsPaper>

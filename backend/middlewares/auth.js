@@ -4,8 +4,9 @@ const ErrorHandler = require('../utils/errorHandler');
 const asyncErrorHandler = require('./asyncErrorHandler');
 
 exports.isAuthenticatedUser = asyncErrorHandler(async (req, res, next) => {
+    console.log(req.body)
     const authHeader = req.headers['authorization'];
-    // console.log('authHeader:', authHeader);
+    console.log('authHeader:', authHeader);
 
     // Check if the authorization header exists and contains the Bearer token
     if (authHeader && authHeader.startsWith('Bearer ')) {

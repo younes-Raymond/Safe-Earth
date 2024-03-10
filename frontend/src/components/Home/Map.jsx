@@ -1,10 +1,9 @@
 // Map.js
 import React from 'react';
-import { useEffect , useState,} from 'react';
-import { MapContainer, TileLayer , Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer , Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Link } from 'react-router-dom';
-import L from 'leaflet';
+import L, { latLngBounds } from 'leaflet';
 import markerIcon from  './markerIcon.png'
 import { Typography, Button , Paper , Box, IconButton, CircularProgress} from '@mui/material';
 import MoreInfoIcon from '@mui/icons-material/Info';
@@ -15,14 +14,23 @@ import { getAllVillagesData , updateDetails} from '../../actions/userAction'
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useSelector } from 'react-redux'; 
+import { OpenCycleMap } from '../../utils/MapLooksLike';
+
+function ChangeView({ center, zoom }) {
+  const map = useMap();
+  map.setView(center, zoom);
+  return null;
+}
+
 function Map() {
     const [selectedPublicId, setSelectedPublicId] = React.useState(null);
     const [villagesData, setVillagesData] = React.useState([]);
     const [loading, setLoading ] = React.useState(false);
+    const [mapCenter, setMapCenter] = React.useState([31.07317457220632, -8.406957080277902]);
+    const [mapZoom, setMapZoom] = React.useState(9.5);
     const mapState = useSelector(state => state.map);
-    console.log('in Redux store',mapState) 
-    const [selectedSuggestion, setSelectedSuggestion] = useState(null);
-    
+    const [selectedVillageId, setSelectedVillageId] = React.useState(null);
+    console.log('redux store updates:',mapState)
     
       const customIcon = new L.Icon({
         iconUrl: markerIcon,
@@ -31,22 +39,43 @@ function Map() {
         popupAnchor: [0, -32], // position the popup above the marker
       });
 
-    
+      
       React.useEffect(() => {
         const fetchData = async () => {
             try {
                 const data = await getAllVillagesData();
-                // console.log(typeof data);
-                // console.log(data);  
                 setVillagesData(data);
             } catch (error) {
                 console.error('Error fetching village data:', error);
             }
         };
     
-        fetchData(); // Call the async function immediately
+        fetchData(); 
     }, []);
     
+
+    React.useEffect(() => {
+      setMapCenter(null)
+      setMapZoom(null)
+      if (mapState.addSuggestion && mapState.addSuggestion.position) {
+        const { lat, lon } = mapState.addSuggestion.position;
+        setMapCenter([lon, lat]);
+        setMapZoom(8);
+      }
+    }, [mapState.addSuggestion]);
+
+
+ React.useEffect(() => {
+  if (mapState.addSuggestion && mapState.addSuggestion._id ) {
+     setSelectedVillageId(mapState.addSuggestion._id)
+     console.log('yeah here we go...')
+  } else {
+    setSelectedVillageId(null)
+    console.log('nothing here im else...')
+  }
+ }, [mapState.addSuggestion])
+
+
 const handleMoreInfoClick = (id) => {
         console.log("hansssadleMoreInfoClick");
         alert(`hello this is id : ${id}`)      
@@ -97,19 +126,18 @@ const handleFileChange = (event, documentId) => {
 }
 
 
-const Center = [31.07317457220632, -8.406957080277902]
-
-
 
 return (
+  
   <MapContainer
-    center={Center}
-    zoom={9.5}
+    center={mapCenter}
+    zoom={mapZoom}
     style={{ height: '700px', width: '100%' }}
   >
+    <ChangeView center={mapCenter || [31.07317457220632, -8.406957080277902]} zoom={mapZoom || 9.5} />
     <TileLayer
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      url={OpenCycleMap.Transport}
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' 
     />
     {villagesData.map((details, index) => (
       <Marker
@@ -117,147 +145,148 @@ return (
         position={[details.position.lon, details.position.lat]} // lon is first and lat seconde always remember this 
         icon={customIcon} 
       >
-<Popup>
-        <Paper style={{ width: '100%', padding: '10px', maxHeight: '320px', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            position='relative'
-            cursor="pointer"
-          >
-            add images!
-            <IconButton color="primary"  
-              onClick={() => handleImageClick(details?.publicId)} 
-              disabled={loading}
-            >
-              <AddPhotoAlternateIcon />
-            </IconButton> 
-            {loading && <CircularProgress />}
-            <input
-              id="fileInput"
-              type="file"
-              accept=".jpg,.jpeg,.png"
-              style={{ display: 'none' }}
-              // multiple
-              onChange={(event) => handleFileChange(event, details._id)}
-            />
-            <Box
-              key={details._id}
-              sx={{
-                border: '1px solid #ccc',
-                borderRadius: '5px',
-                padding: '10px',
-                marginBottom: '20px',
-                width:'100%',
-                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-              }}
-            >
-              <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: '10px', display: 'flex', alignItems: 'center', width: '80%', height: 'auto', whiteSpace: 'nowrap' }}>
-                <LocationOnIcon sx={{ marginRight: '5px' }} color="primary" /> {details.name}
-              </Typography>
-              
-              <Typography variant="body1" sx={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-                <MonetizationOnIcon sx={{ marginRight: '5px' }} color="primary" />
-                {details.donate}
-              </Typography>
+ <Popup>
+ <Paper style={{ width: '100%', padding: '10px', maxHeight: '320px', overflowY: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
+   <Box
+     display="flex"
+     flexDirection="column"
+     alignItems="center"
+     position='relative'
+     cursor="pointer"
+   >
+     add images!
+     <IconButton color="primary"  
+       onClick={() => handleImageClick(details?.publicId)} 
+       disabled={loading}
+     >
+       <AddPhotoAlternateIcon />
+     </IconButton> 
+     {loading && <CircularProgress />}
+     <input
+       id="fileInput"
+       type="file"
+       accept=".jpg,.jpeg,.png"
+       style={{ display: 'none' }}
+       // multiple
+       onChange={(event) => handleFileChange(event, details._id)}
+     />
+     <Box
+       key={details._id}
+       sx={{
+         border: '1px solid #ccc',
+         borderRadius: '5px',
+         padding: '10px',
+         marginBottom: '20px',
+         width:'100%',
+         boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+       }}
+     >
+       <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: '10px', display: 'flex', alignItems: 'center', width: '80%', height: 'auto', whiteSpace: 'nowrap' }}>
+         <LocationOnIcon sx={{ marginRight: '5px' }} color="primary" /> {details.name}
+       </Typography>
+       
+       <Typography variant="body1" sx={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
+         <MonetizationOnIcon sx={{ marginRight: '5px' }} color="primary" />
+         {details.donate}
+       </Typography>
 
 
 <Box key={details._id}>
 {details.moreImages && details.moreImages.length > 0 ? (
-    <Box >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-       {details.moreImages && details.moreImages.length > 0 ? (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '20px'
-      }}
-    >
+<Box >
+<Box
+ sx={{
+   display: 'flex',
+   flexDirection: 'column',
+   justifyContent: 'center',
+   alignItems: 'center',
+ }}
+>
+{details.moreImages && details.moreImages.length > 0 ? (
+<Box
+sx={{
+ display: 'flex',
+ flexDirection: 'column',
+ justifyContent: 'center',
+ alignItems: 'center',
+ padding: '20px'
+}}
+>
 
-      {details.moreImages.map((image, index) => (
-        // Check if the image object exists and has a valid URL
-        image && image.url ? (
-          <React.Fragment key={index}>
-            <img
-              src={image.url}
-              alt={`${index + 1}`}
-              style={{ maxWidth: '90%', borderRadius: '5px', marginBottom: '10px' }}
-            />
-          </React.Fragment>
-        ) : (
-          <img
-            key={index}
-            src='https://res.cloudinary.com/dktkavyr3/image/upload/v1707411973/w3fug2ahr96x9jcesrwp.jpg' // Default image URL
-            alt={`Default ${index + 1}`}
-            style={{ maxWidth: '90%', borderRadius: '5px', marginBottom: '10px' }}
-          />
-        )
-      ))}
-    </Box>
+{details.moreImages.map((image, index) => (
+ // Check if the image object exists and has a valid URL
+ image && image.url ? (
+   <React.Fragment key={index}>
+     <img
+       src={image.url}
+       alt={`${index + 1}`}
+       style={{ maxWidth: '90%', borderRadius: '5px', marginBottom: '10px' }}
+     />
+   </React.Fragment>
+ ) : (
+   <img
+     key={index}
+     src='https://res.cloudinary.com/dktkavyr3/image/upload/v1707411973/w3fug2ahr96x9jcesrwp.jpg' // Default image URL
+     alt={`Default ${index + 1}`}
+     style={{ maxWidth: '90%', borderRadius: '5px', marginBottom: '10px' }}
+   />
+ )
+))}
+</Box>
 ) : (
-  <img
-    src='https://res.cloudinary.com/dktkavyr3/image/upload/v1707411973/w3fug2ahr96x9jcesrwp.jpg' // Default image URL
-    alt='Default Village'
-    style={{ maxWidth: '100%', borderRadius: '5px' }}
-  />
+<img
+src='https://res.cloudinary.com/dktkavyr3/image/upload/v1707411973/w3fug2ahr96x9jcesrwp.jpg' // Default image URL
+alt='Default Village'
+style={{ maxWidth: '100%', borderRadius: '5px' }}
+/>
 )}
 
-      </Box>
-    </Box>
+</Box>
+</Box>
 ) : (
-  <img
-    src='https://res.cloudinary.com/dktkavyr3/image/upload/v1707411973/w3fug2ahr96x9jcesrwp.jpg' // Default image URL
-    alt='Default Village'
-    style={{ maxWidth: '100%', borderRadius: '5px' }}
-  />
+<img
+src='https://res.cloudinary.com/dktkavyr3/image/upload/v1707411973/w3fug2ahr96x9jcesrwp.jpg' // Default image URL
+alt='Default Village'
+style={{ maxWidth: '100%', borderRadius: '5px' }}
+/>
 )}
 
 </Box>
 
 
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginTop: '10px',
-                  alignItems: 'center',
-                  flexDirection:'coulmn',
-                  width:'100%',
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  startIcon={<MoreInfoIcon />}  
-                  onClick={() => handleMoreInfoClick(details._id)}
-                >
-                  More Info
-                </Button>
-                <Link to='CheckOut'>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    startIcon={<DonateIcon />}
-                  >
-                    Donate
-                  </Button>
-                </Link>
-              </Box>
-            </Box>
-          </Box>
-        </Paper>
-      </Popup>
+       <Box
+         sx={{
+           display: 'flex',
+           justifyContent: 'space-between',
+           marginTop: '10px',
+           alignItems: 'center',
+           flexDirection:'coulmn',
+           width:'100%',
+         }}
+       >
+         <Button
+           variant="contained"
+           color="primary"
+           startIcon={<MoreInfoIcon />}  
+           onClick={() => handleMoreInfoClick(details._id)}
+         >
+           More Info
+         </Button>
+         <Link to='CheckOut'>
+           <Button
+             variant="contained"
+             color="secondary"
+             startIcon={<DonateIcon />}
+           >
+             Donate
+           </Button>
+         </Link>
+       </Box>
+     </Box>
+   </Box>
+ </Paper>
+</Popup>
+
 
       </Marker>
     ))}
